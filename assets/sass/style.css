@@ -1,12 +1,110 @@
 @charset "UTF-8";
+/*----------------gsm----------------------------------------*/
 @media screen and (max-width: 600px) {
   /* Ajoutez ici les règles de style que vous souhaitez appliquer
      aux écrans avec une largeur maximale de 600 pixels */
   body {
-    font-size: 14px; /* Par exemple, la taille de police peut être réduite pour les petits écrans */
-    background-color: aqua;
+    font-family: Arial, sans-serif;
+    background-color: blue;
+    margin: 0;
+    padding: 0;
   }
-  .menu {
-    display: none; /* Par exemple, masquer le menu principal sur les petits écrans */
+  h1, h2 {
+    color: #3498db;
+  }
+  .main {
+    padding: 20px;
+  }
+  .principal {
+    max-width: 800px;
+    margin: 0 auto;
+    background: beige;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .events {
+    margin-bottom: 20px;
+  }
+  .events-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .events-list li {
+    background: rgb(98, 176, 245);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  form label {
+    font-weight: bold;
+  }
+  form input[type=text],
+  form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+  }
+  form textarea {
+    resize: vertical;
+  }
+  form button {
+    padding: 10px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  form button:hover {
+    background-color: #217dbb;
+  }
+  .error {
+    color: #e74c3c;
+    font-size: 0.9em;
+  }
+  #createEvent,
+  #editEvent,
+  #ajouterDisponibilite,
+  #SupprimerEvent {
+    margin-bottom: 20px;
+  }
+  #createEvent h2,
+  #editEvent h2,
+  #ajouterDisponibilite h2,
+  #SupprimerEvent h2 {
+    margin-bottom: 10px;
+  }
+  #createEvent form,
+  #editEvent form,
+  #ajouterDisponibilite form,
+  #SupprimerEvent form {
+    padding: 10px;
+    background: gray;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  #createEvent form .error,
+  #editEvent form .error,
+  #ajouterDisponibilite form .error,
+  #SupprimerEvent form .error {
+    margin-top: -10px;
+    margin-bottom: 10px;
   }
 }
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-theme header {
+  background-color: #444444;
+}/*# sourceMappingURL=style.css.map */

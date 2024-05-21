@@ -1,19 +1,129 @@
-//----------------gsm----------------------------------------
+/*----------------gsm----------------------------------------*/
 @media screen and (max-width: 600px) {
   /* Ajoutez ici les règles de style que vous souhaitez appliquer
      aux écrans avec une largeur maximale de 600 pixels */
-  body {
-    font-size: 14px; /* Par exemple, la taille de police peut être réduite pour les petits écrans */
-    background-color: aqua;
-  }
+ // Variables
+$font-stack: Arial, sans-serif;
+$primary-color: #3498db;
+$error-color: #e74c3c;
+$background-color: #f5f5f5;
+$border-radius: 5px;
 
-  .menu {
-    display: none; /* Par exemple, masquer le menu principal sur les petits écrans */
+// Global styles
+body {
+  font-family: $font-stack;
+  background-color: blue;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  color: $primary-color;
+}
+
+.main {
+  padding: 20px;
+}
+
+.principal {
+  max-width: 800px;
+  margin: 0 auto;
+  background:beige;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.events {
+  margin-bottom: 20px;
+
+  &-list {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      background: rgb(98, 176, 245);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: $border-radius;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
   }
 }
 
-//------------------------------pc-------------------------
-@media screen and (min-width:601px) {
+// Form styles
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-  
+  label {
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    font-family: $font-stack;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button {
+    padding: 10px;
+    border: none;
+    background-color: $primary-color;
+    color: white;
+    border-radius: $border-radius;
+    cursor: pointer;
+    font-family: $font-stack;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Error messages
+.error {
+  color: $error-color;
+  font-size: 0.9em;
+}
+
+// Section specific styles
+#createEvent,
+#editEvent,
+#ajouterDisponibilite,
+#SupprimerEvent {
+  margin-bottom: 20px;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  form {
+    padding: 10px;
+    background:gray;
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+
+    .error {
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  }
+}
+}
+
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-theme header {
+  background-color: #444444;
 }
