@@ -99,4 +99,12 @@
     margin-top: -10px;
     margin-bottom: 10px;
   }
+}
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-theme header {
+  background-color: #444444;
 }/*# sourceMappingURL=style.css.map */
