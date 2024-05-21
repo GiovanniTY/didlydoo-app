@@ -1,0 +1,19 @@
+//----------------gsm----------------------------------------
+@media screen and (max-width: 600px) {
+  /* Ajoutez ici les règles de style que vous souhaitez appliquer
+     aux écrans avec une largeur maximale de 600 pixels */
+  body {
+    font-size: 14px; /* Par exemple, la taille de police peut être réduite pour les petits écrans */
+    background-color: aqua;
+  }
+
+  .menu {
+    display: none; /* Par exemple, masquer le menu principal sur les petits écrans */
+  }
+}
+
+//------------------------------pc-------------------------
+@media screen and (min-width:601px) {
+
+  
+}
