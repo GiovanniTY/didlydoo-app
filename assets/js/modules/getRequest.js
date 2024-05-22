@@ -112,13 +112,9 @@ function creatDomEvent(data) {
     // create DOMsection
     const mainElem = document.querySelector('main')
     const sectionElem = document.createElement('section')
+    const btnAddEvent = document.querySelector('#addEvent')
 
-    //refresh section des Events
-    sectionElem.remove('div')
-
-    console.log(sectionElem.innerHTML);
-
-    mainElem.prepend(sectionElem)
+    btnAddEvent.append(sectionElem)
 
     for (const event of data) {
 
