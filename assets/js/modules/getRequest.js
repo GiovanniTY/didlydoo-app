@@ -114,7 +114,7 @@ function creatDomEvent(data) {
     const sectionElem = document.createElement('section')
     const btnAddEvent = document.querySelector('#addEvent')
 
-    btnAddEvent.append(sectionElem)
+    mainElem.appendChild(sectionElem)
 
     for (const event of data) {
 
