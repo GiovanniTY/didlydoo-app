@@ -17,6 +17,7 @@ export async function postEvent(dataBody) {
 
         const result = await response.json();
         window.location
+        
 
         console.log("Success:", result);
     } catch (error) {
