@@ -5,9 +5,9 @@
      aux écrans avec une largeur maximale de 600 pixels */
   body {
     font-family: Arial, sans-serif;
-    background-color: blue;
-    margin: 0;
-    padding: 0;
+    background-color: beige;
+    margin: 20px;
+    padding: 10px;
   }
   h1, h2 {
     color: #3498db;
@@ -17,7 +17,7 @@
   }
   .principal {
     max-width: 800px;
-    margin: 0 auto;
+    margin: auto;
     background: beige;
     padding: 20px;
     border-radius: 5px;

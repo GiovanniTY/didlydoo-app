@@ -3,6 +3,7 @@
   /* Ajoutez ici les règles de style que vous souhaitez appliquer
      aux écrans avec une largeur maximale de 600 pixels */
  // Variables
+// Variables
 $font-stack: Arial, sans-serif;
 $primary-color: #3498db;
 $error-color: #e74c3c;
@@ -12,9 +13,9 @@ $border-radius: 5px;
 // Global styles
 body {
   font-family: $font-stack;
-  background-color: blue;
-  margin: 0;
-  padding: 0;
+  background-color: beige;
+  margin: 20px;
+  padding: 10px;
 }
 
 h1, h2 {
@@ -27,8 +28,8 @@ h1, h2 {
 
 .principal {
   max-width: 800px;
-  margin: 0 auto;
-  background:beige;
+  margin: auto;
+  background: beige;
   padding: 20px;
   border-radius: $border-radius;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -77,10 +78,11 @@ form {
     padding: 10px;
     border: none;
     background-color: $primary-color;
-    color: white;
+    color: #ffff;
     border-radius: $border-radius;
     cursor: pointer;
     font-family: $font-stack;
+   
 
     &:hover {
       background-color: darken($primary-color, 10%);
@@ -107,7 +109,7 @@ form {
 
   form {
     padding: 10px;
-    background:gray;
+    background: gray;
     border: 1px solid #ccc;
     border-radius: $border-radius;
 
