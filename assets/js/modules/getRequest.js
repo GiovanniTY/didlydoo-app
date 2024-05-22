@@ -1,4 +1,4 @@
-import { postEvent } from "./postRequest.js"
+import { postEvent, postDates } from "./postRequest.js"
 
 
 /**
@@ -102,8 +102,48 @@ export function displayAddEvent(methode, id) {
     })
 }
 
+function displayAddDate(id) {
+
+    let arrayBody = []
+    let arrayDates = []
+
+    const addDatesFrom = document.querySelector('#ajouterDatesForm')
+    const date = addDatesFrom.querySelector('#disponibilite')
+    const btnSubmitDate = addDatesFrom.querySelector('#btnAddDate')
+    btnSubmitDate.innerHTML = 'Add Date'
+
+    const theadElem = document.querySelector('thead')
+    const dateSlected = theadElem.querySelectorAll('th')
+
+    for (const dates of dateSlected) {
+
+        /*const [year, month, day] = dates.innerHTML.split('-');
+        arrayDates.push(day + '-' + month + '-' + year)-*/
+
+        arrayDates.push(dates.innerHTML)
+    }
+
+    btnSubmitDate.addEventListener('click', event => {
+        event.preventDefault()
+
+        //console.log(arrayDates.indexOf(date.value));
+
+        if (parseInt(arrayDates.indexOf(date.value)) >= 0) {
+            alert(date.value + ' se trouve dans l\'evenement')
+
+        } else {
+            arrayBody = {
+                "dates": [
+                    date.value
+                ]
+            }
+            postDates(id, arrayBody)
+        }
+    })
+}
+
 /**
- * Cr"ation des events via le DOM
+ * Création des events via le DOM
  * @param {*} data de l'api
  */
 function creatDomEvent(data) {
@@ -159,7 +199,7 @@ function creatDomEvent(data) {
             thead.appendChild(headerRow)
             const th = document.createElement('th')
             headerRow.appendChild(th)
-            headerRow.innerHTML = 'name'
+            th.innerHTML = 'name'
 
             //create de tbody
             const tbody = document.createElement('tbody')
@@ -230,5 +270,20 @@ function creatDomEvent(data) {
                 }
             }
         }
+
+        // btn div
+        const btnDiv = document.createElement('div')
+        sectionElem.appendChild(btnDiv)
+        btnDiv.classList.add('event-button')
+        // create btn DOM
+        const btnAddDates = document.createElement('button')
+        btnDiv.appendChild(btnAddDates)
+        btnAddDates.id = 'btnAddDates'
+        btnAddDates.innerHTML = 'Add Dates'
+
+        //event
+        btnAddDates.addEventListener('click', event => {
+            displayAddDate(idEvent)
+        })
     }
 }

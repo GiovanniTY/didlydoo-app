@@ -16,9 +16,31 @@ export async function postEvent(dataBody) {
         });
 
         const result = await response.json();
-        window.location
+        location.reload();
 
         console.log("Success:", result);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
+export async function postDates(id, dataBody) {
+
+    try {
+        const response = await fetch("http://localhost:3000/api/events/" + id + "/add_dates", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataBody),
+        });
+
+        const result = await response.json();
+        location.reload();
+
+        console.log(id,dataBody);
+       console.log("Success:", result);
     } catch (error) {
         console.error("Error:", error);
     }
