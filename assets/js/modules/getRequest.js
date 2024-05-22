@@ -1,3 +1,4 @@
+import { postEvent } from "./postRequest.js"
 
 
 /**
@@ -56,6 +57,45 @@ export function displayAttendee(name) {
         .catch(error => {
             console.error('Erreur:', error)
         })
+}
+
+export function displayAddEvent(methode) {
+
+    let arrayBody = []
+
+    //data Element 
+    const form = document.querySelector('#createEventForm')
+    const eventName = document.querySelector('#eventName')
+    const eventDescription = document.querySelector('#eventDescription')
+    const AuteurEven = document.querySelector('#AuteurEven')
+    const btnSubmitEvent = document.querySelector('#submitEvent')
+
+    if (methode == 'post')
+        btnSubmitEvent.innerHTML = 'Add Event'
+    else
+        btnSubmitEvent.innerHTML = "Patch Event"
+
+    btnSubmitEvent.addEventListener('click', event => {
+        event.preventDefault()
+
+        arrayBody = {
+            "name": eventName.value,
+            "description": eventDescription.value,
+            "author": AuteurEven.value,
+            "dates": []
+        }
+
+        if (methode == 'post') {
+            postEvent(arrayBody)
+        } else if (methode == 'patch') {
+            //patchEvent(arrayBody)
+        }
+
+
+
+    })
+
+    console.log(form);
 }
 
 /**
@@ -155,9 +195,13 @@ function creatDomEvent(data) {
             //create button edit
             const btnEdit = document.createElement('button')
             tdList.append(btnEdit)
-            btnEdit.id= name+idEvent
-            btnEdit.innerHTML='Edit'
+            btnEdit.id = name + idEvent
+            btnEdit.innerHTML = 'Edit'
 
+            // Event 
+            btnEdit.addEventListener('click', event => {
+                console.log('edit' + name + ' - id:' + idEvent)
+            })
 
             const availabilityBol = arrayAttendees[name]
 
@@ -175,9 +219,6 @@ function creatDomEvent(data) {
             }
         }
 
-        // Event 
-        btnEdit.addEventListener('click',event =>{
-            console.log('edit'+ name + ' - id:' + idEvent )
-        })
+
     }
 }
