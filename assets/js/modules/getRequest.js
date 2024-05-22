@@ -65,7 +65,7 @@ export function displayAttendee(name) {
  * @param {*} methode d'envoi des donnée pour l'api
  * @param {*} id de l'event a modifier (methode Patch)
  */
-export function displayAddEvent(methode,id) {
+export function displayAddEvent(methode, id) {
 
     let arrayBody = []
 
@@ -148,81 +148,87 @@ function creatDomEvent(data) {
         eventElem.appendChild(availabilityElem)
         availabilityElem.classList.add('events-availability')
 
-        const tableElem = document.createElement('table')
-        availabilityElem.appendChild(tableElem)
+        if (arrayDates != 0) {
+            const tableElem = document.createElement('table')
+            availabilityElem.appendChild(tableElem)
 
-        // create  de thead
-        const thead = document.createElement('thead')
-        const headerRow = document.createElement('tr')
-        tableElem.appendChild(thead)
-        thead.appendChild(headerRow)
-        const th = document.createElement('th')
-        headerRow.appendChild(th)
-        headerRow.innerHTML = 'name'
+            // create  de thead
+            const thead = document.createElement('thead')
+            const headerRow = document.createElement('tr')
+            tableElem.appendChild(thead)
+            thead.appendChild(headerRow)
+            const th = document.createElement('th')
+            headerRow.appendChild(th)
+            headerRow.innerHTML = 'name'
 
-        //create de tbody
-        const tbody = document.createElement('tbody')
-        tableElem.appendChild(tbody)
+            //create de tbody
+            const tbody = document.createElement('tbody')
+            tableElem.appendChild(tbody)
 
-        /**
-         * recupere les date et les disponibilté par user 
-         * ex : Jean-Daniel {2022-03-17: false, 2022-03-18: null, 2022-03-21: true, 2022-03-22: null
-         */
-        for (const availability of arrayDates) {
+            /**
+             * recupere les date et les disponibilté par user 
+             * ex : Jean-Daniel {2022-03-17: false, 2022-03-18: null, 2022-03-21: true, 2022-03-22: null
+             */
 
-            const thDate = document.createElement('th')
-            headerRow.appendChild(thDate)
-            thDate.innerHTML = availability.date
+            console.log(arrayDates);
 
-            for (const attendee of availability.attendees) {
-                const name = attendee.name
-                const available = attendee.available
+            if (arrayDates != 0) {
 
-                if (!arrayAttendees[name]) {
-                    arrayAttendees[name] = {}
+            }
+            for (const availability of arrayDates) {
+
+                const thDate = document.createElement('th')
+                headerRow.appendChild(thDate)
+                thDate.innerHTML = availability.date
+
+                for (const attendee of availability.attendees) {
+                    const name = attendee.name
+                    const available = attendee.available
+
+                    if (!arrayAttendees[name]) {
+                        arrayAttendees[name] = {}
+                    }
+                    arrayAttendees[name][availability.date] = available
+
                 }
-                arrayAttendees[name][availability.date] = available
+            }
 
+            /**
+             * list le arrayAttendees et l'ajoute via le DOM
+             */
+            for (const name in arrayAttendees) {
+                // create de row
+                const trAttendee = document.createElement('tr')
+                tbody.appendChild(trAttendee)
+                // create de column des noms
+                const tdList = document.createElement('td')
+                trAttendee.appendChild(tdList)
+                tdList.innerHTML = name
+                //create button edit
+                const btnEdit = document.createElement('button')
+                tdList.append(btnEdit)
+                btnEdit.id = name + idEvent
+                btnEdit.innerHTML = 'Edit'
+
+                // Event 
+                btnEdit.addEventListener('click', event => {
+                    console.log('edit' + name + ' - id:' + idEvent)
+                })
+                const availabilityBol = arrayAttendees[name]
+
+                for (const dateInfo in availabilityBol) {
+
+                    // creat de column des disponibilitées
+                    const tdList2 = document.createElement('td')
+                    trAttendee.appendChild(tdList2)
+                    if (availabilityBol[dateInfo])
+                        tdList2.innerHTML = 'V'
+                    else if (availabilityBol[dateInfo] == null)
+                        tdList2.innerHTML = ''
+                    else
+                        tdList2.innerHTML = 'X'
+                }
             }
         }
-
-        /**
-         * list le arrayAttendees et l'ajoute via le DOM
-         */
-        for (const name in arrayAttendees) {
-            // create de row
-            const trAttendee = document.createElement('tr')
-            tbody.appendChild(trAttendee)
-            // create de column des noms
-            const tdList = document.createElement('td')
-            trAttendee.appendChild(tdList)
-            tdList.innerHTML = name
-            //create button edit
-            const btnEdit = document.createElement('button')
-            tdList.append(btnEdit)
-            btnEdit.id = name + idEvent
-            btnEdit.innerHTML = 'Edit'
-
-  // Event 
-  btnEdit.addEventListener('click',event =>{
-    console.log('edit'+ name + ' - id:' + idEvent )
-})
-            const availabilityBol = arrayAttendees[name]
-
-            for (const dateInfo in availabilityBol) {
-
-                // creat de column des disponibilitées
-                const tdList2 = document.createElement('td')
-                trAttendee.appendChild(tdList2)
-                if (availabilityBol[dateInfo])
-                    tdList2.innerHTML = 'V'
-                else if (availabilityBol[dateInfo] == null)
-                    tdList2.innerHTML = ''
-                else
-                    tdList2.innerHTML = 'X'
-            }
-        }
-
-      
     }
 }
