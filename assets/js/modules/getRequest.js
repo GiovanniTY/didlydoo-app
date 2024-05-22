@@ -59,7 +59,13 @@ export function displayAttendee(name) {
         })
 }
 
-export function displayAddEvent(methode) {
+/**
+ * récupère les données dans le form Add Event 
+ * envoi ces données dans l'api via une fucntion post ou patch
+ * @param {*} methode d'envoi des donnée pour l'api
+ * @param {*} id de l'event a modifier (methode Patch)
+ */
+export function displayAddEvent(methode,id) {
 
     let arrayBody = []
 
@@ -94,8 +100,6 @@ export function displayAddEvent(methode) {
 
 
     })
-
-    console.log(form);
 }
 
 /**
@@ -104,7 +108,6 @@ export function displayAddEvent(methode) {
  */
 function creatDomEvent(data) {
 
-    //console.log(data)
     // create DOMsection
     const mainElem = document.querySelector('main')
     const sectionElem = document.createElement('section')
@@ -179,7 +182,6 @@ function creatDomEvent(data) {
 
             }
         }
-        console.log(arrayAttendees)
 
         /**
          * list le arrayAttendees et l'ajoute via le DOM

@@ -1,3 +1,7 @@
+/**
+ * create New Event dans l'api via une methode Post
+ * @param {*} dataBody données retournées par la formulaire ' add Event '
+ */
 export async function postEvent(dataBody) {
 
     try {
