@@ -34,6 +34,7 @@ table {
     tr {
       &:nth-child(even) {
         background-color: $table-row-bg-color-even;
+        text-align: center;
       }
 
       &:hover {
@@ -63,13 +64,13 @@ section{
     padding: 20px;
     margin-top: 20px;
     gap: 20px;
+    align-items: center;
+    .events-list-title{
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 10px;
+
+    }
   }
   
-  /*table, th, td {
-    border: 1px solid;
-    border-collapse: collapse;
-    padding: 8px;
-    text-align: center;
-	vertical-align: middle;
-  }*/
 
