@@ -20,6 +20,7 @@
             <ul class="events-list"></ul> <!-- Modifié pour éviter la confusion avec la classe .events -->
             <div id="createEvent">
                 <h2>Créer un événement</h2>
+                <button id="closeCreateEvent" class="close">X</button>
                 <form id="createEventForm">
                     <label for="eventName">Nom :</label>
                     <input type="text" id="eventName" name="eventName" maxlength="256">
@@ -62,6 +63,7 @@
             </div>
             <div id="ajouterDates"> <!-- Correction de l'ID -->
                 <h2>Ajouter des dates</h2>
+                <button id="closeAjouterDates" class="close">X</button>
                 <form id="ajouterDatesForm"> <!-- Correction de l'ID -->
                     <input type="hidden" id="disponibiliteEventId" name="disponibiliteEventId"> <!-- Correction de l'ID -->
                     <label for="disponibilite">Disponibilité :</label> <!-- Correction de l'ID -->

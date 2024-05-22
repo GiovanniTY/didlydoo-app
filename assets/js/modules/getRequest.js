@@ -69,6 +69,10 @@ export function displayAddEvent(methode, id) {
 
     let arrayBody = []
 
+    //show modale
+    const modale = document.querySelector('#createEvent')
+    modale.style.display = 'block'
+
     //data Element 
     const form = document.querySelector('#createEventForm')
     const eventName = document.querySelector('#eventName')
@@ -96,9 +100,6 @@ export function displayAddEvent(methode, id) {
         } else if (methode == 'patch') {
             //patchEvent(arrayBody)
         }
-
-
-
     })
 }
 
@@ -106,6 +107,10 @@ function displayAddDate(id) {
 
     let arrayBody = []
     let arrayDates = []
+
+    //show modale
+    const modale = document.querySelector('#ajouterDates')
+    modale.style.display = 'block'
 
     const addDatesFrom = document.querySelector('#ajouterDatesForm')
     const date = addDatesFrom.querySelector('#disponibilite')
@@ -116,9 +121,6 @@ function displayAddDate(id) {
     const dateSlected = theadElem.querySelectorAll('th')
 
     for (const dates of dateSlected) {
-
-        /*const [year, month, day] = dates.innerHTML.split('-');
-        arrayDates.push(day + '-' + month + '-' + year)-*/
 
         arrayDates.push(dates.innerHTML)
     }

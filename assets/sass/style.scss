@@ -234,8 +234,24 @@ form {
 #createEvent,
 #editEvent,
 #ajouterDisponibilite,
-#SupprimerEvent {
+#SupprimerEvent,
+#ajouterDates {
   margin-bottom: 20px;
+  position: absolute;
+  width: 90%;
+  padding: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: none;
+  background-color: #fff;
+  border-radius: 15px;
+
+  .close{
+    position: relative;
+    left: 95%;
+    margin-bottom: 5px;
+  }
 
   h2 {
     margin-bottom: 10px;

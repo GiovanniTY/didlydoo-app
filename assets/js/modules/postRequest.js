@@ -1,4 +1,5 @@
 import { displayEvents } from './getRequest.js'
+import { closeModale } from './eventModale.js';
 
 /**
  * create New Event dans l'api via une methode Post
@@ -16,7 +17,8 @@ export async function postEvent(dataBody) {
         });
 
         const result = await response.json();
-        location.reload();
+        closeModale('#createEvent')
+        location.reload()
 
         console.log("Success:", result);
     } catch (error) {
