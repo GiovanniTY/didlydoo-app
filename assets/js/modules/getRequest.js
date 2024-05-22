@@ -108,9 +108,16 @@ export function displayAddEvent(methode,id) {
  */
 function creatDomEvent(data) {
 
+
     // create DOMsection
     const mainElem = document.querySelector('main')
     const sectionElem = document.createElement('section')
+
+    //refresh section des Events
+    sectionElem.remove('div')
+
+    console.log(sectionElem.innerHTML);
+
     mainElem.prepend(sectionElem)
 
     for (const event of data) {
