@@ -1,3 +1,5 @@
+@import 'events' ; 
+
 /*----------------gsm----------------------------------------*/
 @media screen and (max-width: 600px) {
   /* Ajoutez ici les règles de style que vous souhaitez appliquer
@@ -253,6 +255,8 @@ form {
 }
 }
 
+//giovanni 
+
 body.dark-theme {
   background-color: #121212;
   color: #ffffff;
@@ -261,3 +265,5 @@ body.dark-theme {
 body.dark-theme header {
   background-color: #444444;
 }
+
+

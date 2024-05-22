@@ -13,6 +13,7 @@
         <button id="dark-mode-btn">Toggle Dark Mode</button>
     </header>
     <main class="principal">
+        <button id="addEvent">Add Event</button>
         <!-- Liste des événements -->
         <h1>Gestion des événements</h1>
         <div class="events"> 
@@ -30,7 +31,7 @@
                     <label for="AuteurEven">Auteur :</label>
                     <input type="text" id="AuteurEven" name="AuteurEven" maxlength="256">
                     <div id="AuteurEvenError" class="error"></div>
-                    <button type="submit">Créer</button>
+                    <button type="submit" id="submitEvent">Créer</button>
                 </form>
             </div>
             <!-- Formulaire de modification d'un événement -->
@@ -39,13 +40,13 @@
                 <form id="editEventForm">
                     <input type="hidden" id="eventId" name="eventId">
                     <label for="editEventName">Nom :</label>
-                    <input type="text" id="editEventName" name="editEventName" maxlength="256">
+                    <input type="text" id="editEventName" name="editEventName" maxlength="256" required>
                     <div id="editEventNameError" class="error"></div>
                     <label for="editEventDescription">Description :</label>
-                    <textarea id="editEventDescription" name="editEventDescription" maxlength="256"></textarea>
+                    <textarea id="editEventDescription" name="editEventDescription" maxlength="256" required></textarea>
                     <div id="editEventDescriptionError" class="error"></div>
                     <label for="editAuteurEven">Auteur :</label>
-                    <input type="text" id="editAuteurEven" name="editAuteurEven" maxlength="256">
+                    <input type="text" id="editAuteurEven" name="editAuteurEven" maxlength="256" required>
                     <div id="editAuteurEvenError" class="error"></div>
                     <button type="submit">Modifier</button>
                 </form>
