@@ -1,3 +1,4 @@
+import { postEvent } from "./postRequest.js"
 
 
 /**
@@ -59,15 +60,64 @@ export function displayAttendee(name) {
 }
 
 /**
+ * récupère les données dans le form Add Event 
+ * envoi ces données dans l'api via une fucntion post ou patch
+ * @param {*} methode d'envoi des donnée pour l'api
+ * @param {*} id de l'event a modifier (methode Patch)
+ */
+export function displayAddEvent(methode,id) {
+
+    let arrayBody = []
+
+    //data Element 
+    const form = document.querySelector('#createEventForm')
+    const eventName = document.querySelector('#eventName')
+    const eventDescription = document.querySelector('#eventDescription')
+    const AuteurEven = document.querySelector('#AuteurEven')
+    const btnSubmitEvent = document.querySelector('#submitEvent')
+
+    if (methode == 'post')
+        btnSubmitEvent.innerHTML = 'Add Event'
+    else
+        btnSubmitEvent.innerHTML = "Patch Event"
+
+    btnSubmitEvent.addEventListener('click', event => {
+        event.preventDefault()
+
+        arrayBody = {
+            "name": eventName.value,
+            "description": eventDescription.value,
+            "author": AuteurEven.value,
+            "dates": []
+        }
+
+        if (methode == 'post') {
+            postEvent(arrayBody)
+        } else if (methode == 'patch') {
+            //patchEvent(arrayBody)
+        }
+
+
+
+    })
+}
+
+/**
  * Cr"ation des events via le DOM
  * @param {*} data de l'api
  */
 function creatDomEvent(data) {
 
-    //console.log(data)
+
     // create DOMsection
     const mainElem = document.querySelector('main')
     const sectionElem = document.createElement('section')
+
+    //refresh section des Events
+    sectionElem.remove('div')
+
+    console.log(sectionElem.innerHTML);
+
     mainElem.prepend(sectionElem)
 
     for (const event of data) {
@@ -139,7 +189,6 @@ function creatDomEvent(data) {
 
             }
         }
-        console.log(arrayAttendees)
 
         /**
          * list le arrayAttendees et l'ajoute via le DOM
@@ -155,8 +204,8 @@ function creatDomEvent(data) {
             //create button edit
             const btnEdit = document.createElement('button')
             tdList.append(btnEdit)
-            btnEdit.id= name+idEvent
-            btnEdit.innerHTML='Edit'
+            btnEdit.id = name + idEvent
+            btnEdit.innerHTML = 'Edit'
 
   // Event 
   btnEdit.addEventListener('click',event =>{
