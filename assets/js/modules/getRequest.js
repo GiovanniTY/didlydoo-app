@@ -89,6 +89,16 @@ function creatDomEvent(data) {
         eventNameElem.classList.add('events-list-title')
         eventNameElem.innerHTML = event.name + ' ( ' + event.author + ' )'
 
+        //create button del
+        const btnDel = document.createElement('button')
+        eventNameElem.appendChild(btnDel)
+        btnDel.id = idEvent
+        btnDel.innerHTML = 'del'
+
+        // Event del
+        btnDel.addEventListener('click', event => {
+            console.log('edit' + ' - id:' + idEvent)
+        })
         // create DOM Description
         const eventDescriptionElem = document.createElement('div')
         eventElem.appendChild(eventDescriptionElem)
@@ -155,9 +165,14 @@ function creatDomEvent(data) {
             //create button edit
             const btnEdit = document.createElement('button')
             tdList.append(btnEdit)
-            btnEdit.id= name+idEvent
-            btnEdit.innerHTML='Edit'
+            btnEdit.id = name + idEvent
+            btnEdit.innerHTML = 'Edit'
 
+
+            // Event 
+            btnEdit.addEventListener('click', event => {
+                console.log('edit' + name + ' - id:' + idEvent)
+            })
 
             const availabilityBol = arrayAttendees[name]
 
@@ -175,9 +190,6 @@ function creatDomEvent(data) {
             }
         }
 
-        // Event 
-        btnEdit.addEventListener('click',event =>{
-            console.log('edit'+ name + ' - id:' + idEvent )
-        })
+
     }
 }
