@@ -77,13 +77,18 @@ section{
 //giovanni 
 
 body.dark-theme {
-    background-color: #121212;
+    background-color: #4A4A4A;
     color: #ffffff;
   }
   
   body.dark-theme header {
-    background-color: #444444;
+    background-color: #4A4A4A;
   }
+
+  section.dark-theme{
+    color: black;
+  }
+  
   .btn-edit{
       width: 16px;
       height: 16px;
