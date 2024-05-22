@@ -158,9 +158,6 @@ function creatDomEvent(data) {
             btnEdit.id= name+idEvent
             btnEdit.innerHTML='Edit'
 
-            btnEdit.addEventListener('click',event =>{
-                console.log('edit'+ name + ' - id:' + idEvent )
-            })
 
             const availabilityBol = arrayAttendees[name]
 
@@ -177,5 +174,10 @@ function creatDomEvent(data) {
                     tdList2.innerHTML = 'X'
             }
         }
+
+        // Event 
+        btnEdit.addEventListener('click',event =>{
+            console.log('edit'+ name + ' - id:' + idEvent )
+        })
     }
 }
