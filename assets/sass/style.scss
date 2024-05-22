@@ -265,5 +265,10 @@ body.dark-theme {
 body.dark-theme header {
   background-color: #444444;
 }
-
-
+.btn-edit{
+    width: 16px;
+    height: 16px;
+    background-color: transparent; 
+    border: none; 
+    background-image: url('../images/pencil-alt-solid (1).svg');
+}
