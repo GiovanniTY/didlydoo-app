@@ -1,0 +1,75 @@
+
+$table-border-color: #cccccc;
+$table-header-bg-color: #3498db;
+$table-header-text-color: #ffffff;
+$table-row-bg-color-even: #f5f5f5;
+$table-row-hover-bg-color: #e0e0e0;
+$table-cell-padding: 10px;
+$table-border-width: 1px;
+
+table, th, td {
+  border: $table-border-width solid $table-border-color;
+  padding: $table-cell-padding;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+
+  thead {
+    background-color: $table-header-bg-color;
+    color: $table-header-text-color;
+    
+    th {
+      padding: $table-cell-padding;
+      text-align: center;
+      border: $table-border-width solid $table-border-color;
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(even) {
+        background-color: $table-row-bg-color-even;
+      }
+
+      &:hover {
+        background-color: $table-row-hover-bg-color;
+      }
+    }
+
+    td {
+      border: $table-border-width solid $table-border-color;
+      padding: $table-cell-padding;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .events-list{
+    display: flex;
+    flex-direction: column;
+    color: red($color: #d43030);
+    border: 2px solid rgb(10, 9, 9);
+    padding: 20px;
+    margin-top: 20px;
+    gap: 20px;
+  }
+  
+  /*table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 8px;
+    text-align: center;
+	vertical-align: middle;
+  }*/
+
