@@ -62,20 +62,19 @@ export function displayAttendees() {
  * affiche un partiicpant selectionner 
  * @param {*} name nom du participant
  */
-export function displayAttendee(name) {
-    fetch('http://localhost:3000/api/attendees/' + name)
-        .then(response => {
-            if (!response.ok) {
-                console.log('no found')
-            }
-            return response.json()
-        })
-        .then(dataAttendee => {
-            console.log(dataAttendee.name)
-        })
-        .catch(error => {
-            console.error('Erreur:', error)
-        })
+export async function displayAttendee(name) {
+    try {
+        const response = await fetch('http://localhost:3000/api/attendees/' + name);
+        if (!response.ok) {
+            console.log('Not found');
+            return null;
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erreur:', error);
+        return null;
+    }
 }
 
 /**
@@ -234,12 +233,17 @@ async function displayAddDate(id) {
         console.error('Error processing data:', error);
     }
 }
-
+/**
+ * Ajouter un new attend dans event
+ * @param {*} id de l'event
+ */
 export async function displayAddAttend(id) {
 
     let arrayDates = []
     let arrayDatesSelected = []
+    let arrayNmaExists = []
     let cpt = 0
+    let nameExist
 
     //show modale
     const modale = document.querySelector('#ajouterDisponibilite')
@@ -247,10 +251,30 @@ export async function displayAddAttend(id) {
     const dateAttend = modale.querySelector('.date-attend')
     const btnSubmit = modale.querySelector('#submitDisponibilite')
     const name = modale.querySelector('#attend')
+    dateAttend.innerHTML = '' //initialise l'element
 
-
+    // verifie si le nom encodé existe deja 
     try {
-        const dataEvent = await displayEvent(id)
+        const dataEvent = await displayEvent(id) // function api event via id
+
+        name.addEventListener('change', async event => {
+
+            try {
+                const dataAttend = await displayAttendee(name.value)
+
+                for (const event of dataAttend.events) {
+                    arrayNmaExists.push(event.id)
+                }
+                const idString = id
+                nameExist = arrayNmaExists.indexOf(idString)
+                console.log(nameExist);
+                console.log('iD:' + arrayNmaExists);
+                console.log(id.toString());
+
+            } catch (error) {
+                console.error('Error processing data:', error);
+            }
+        })
 
         if (dataEvent.dates.length == 0) {
             displayAddDate(id)
@@ -280,7 +304,7 @@ export async function displayAddAttend(id) {
             btnSubmit.addEventListener('click', event => {
 
                 event.preventDefault()
-                if (name.value != '') {
+                if (name.value != '' && nameExist === -1) {
                     for (let i = 0; i < arrayDates.length; i++) {
                         const checkBoxSelected = dateAttend.querySelector('#checkBox' + i)
                         console.log(checkBoxSelected.checked);
@@ -296,12 +320,12 @@ export async function displayAddAttend(id) {
 
                     if (name.value == '')
                         disponibiliteError.innerHTML = 'Requis'
+
+                    if (nameExist <= 0)
+                        disponibiliteError.innerHTML = 'Attendee ' +name.value+ ' already exists'
                 }
             })
         }
-
-
-
         console.log(arrayDates);
     } catch (error) {
         console.error('Error processing data:', error);
