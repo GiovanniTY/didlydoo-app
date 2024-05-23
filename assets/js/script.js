@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCloseCreateEvent.addEventListener('click', event => {
         closeModale('#createEvent')
     })
-
     // close modale Add date
     const btnCloseAddDates = document.querySelector('#closeAjouterDates')
     btnCloseAddDates.addEventListener('click', event => {

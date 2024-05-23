@@ -1,5 +1,6 @@
 import { postEvent, postDates } from "./postRequest.js"
 import { patchEvent } from "./patchRequest.js"
+import { closeModale } from "./eventModale.js"
 
 
 /**
@@ -109,13 +110,6 @@ export function displayAddEvent(methode, id) {
 
     btnSubmitEvent.addEventListener('click', event => {
         event.preventDefault()
-
-        arrayBody = {
-            "name": eventName.value,
-            "description": eventDescription.value,
-            "author": AuteurEven.value,
-            "dates": []
-        }
 
         if (methode == 'post') {
             arrayBody = {
@@ -364,4 +358,25 @@ function creatDomEvent(data) {
             displayAddEvent('patch', idEvent)
         })
     }
+}
+
+export function displayMessage(result){
+
+    //show modale
+    const eventElem = document.querySelector('.events')
+    const modale =  eventElem.querySelector('#messageLog')
+    const btnCloseModale =  eventElem.querySelector('#closeMessage')
+    modale.style.display = 'block'
+    const modaleText = modale.querySelector('p')
+    modaleText.innerHTML= result
+
+    console.log(modaleText);
+
+    // close modale messageLog
+    btnCloseModale.addEventListener('click', event => {
+        closeModale('#messageLog')
+        location.reload()
+    })
+
+
 }

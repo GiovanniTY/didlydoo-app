@@ -1,4 +1,5 @@
 import { closeModale } from './eventModale.js';
+import { displayMessage } from './getRequest.js';
 
 /**
  * create New Event dans l'api via une methode Post
@@ -17,10 +18,12 @@ export async function patchEvent(dataBody, id) {
 
         const result = await response.json();
         closeModale('#createEvent')
-        location.reload()
+        displayMessage('Success : Patch event : ' + dataBody.name)
 
         console.log("Success:", result);
     } catch (error) {
         console.error("Error:", error);
+        closeModale('#createEvent')
+        displayMessage('Error : Patch event : ' + dataBody.name)
     }
 }

@@ -1,4 +1,4 @@
-import { displayEvents } from './getRequest.js'
+import { displayEvents , displayMessage} from './getRequest.js'
 import { closeModale } from './eventModale.js';
 
 /**
@@ -18,11 +18,13 @@ export async function postEvent(dataBody) {
 
         const result = await response.json();
         closeModale('#createEvent')
-        location.reload()
+        displayMessage('Success : Add Event' + dataBody.name)
 
         console.log("Success:", result);
     } catch (error) {
         console.error("Error:", error);
+        closeModale('#createEvent')
+        displayMessage('Error : Add event' + dataBody.name)
     }
 }
 
@@ -39,11 +41,14 @@ export async function postDates(id, dataBody) {
         });
 
         const result = await response.json();
-        location.reload();
+        closeModale('#ajouterDates')
+        displayMessage('Success : Add Date(s) : ' + dataBody.dates)
 
         console.log(id,dataBody);
        console.log("Success:", result);
     } catch (error) {
         console.error("Error:", error);
+        closeModale('#ajouterDates')
+        displayMessage('Success : Add Date(s) : ' + dataBody.dates)
     }
 }
