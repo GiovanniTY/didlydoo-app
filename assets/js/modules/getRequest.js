@@ -185,10 +185,14 @@ function displayAddDate(id) {
             selected.appendChild(btnDateSelected)
             btnDateSelected.innerHTML = 'X'
 
+            arrayDatesSelected.push(dateValue)
+
             //supressionde la date
             btnDateSelected.addEventListener('click', event => {
                 event.preventDefault()
                 datesSlected.removeChild(selected)
+                let datesPostion = arrayDatesSelected.indexOf(dateValue)
+                arrayDatesSelected.splice(datesPostion,1)
             })
         }
     })
@@ -196,13 +200,7 @@ function displayAddDate(id) {
     btnSubmitDate.addEventListener('click', event => {
         event.preventDefault()
 
-        const datesAllSelected = datesSlected.querySelectorAll('div')
-        console.log(datesAllSelected);
-        // ajouter dans la arrayDatesSelected les date selectionnées
-        for (const date of datesAllSelected) {
-            arrayDatesSelected.push(date.innerText.substring(0, 10))
-
-        }
+        console.log(arrayDatesSelected);
         arrayBody = {
             "dates": 
                 arrayDatesSelected
