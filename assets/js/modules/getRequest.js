@@ -160,7 +160,7 @@ export async function displayAddEvent(methode, id) {
  * Ajote des dates
  * @param {*} id event
  */
-function displayAddDate(id) {
+async function displayAddDate(id) {
 
     let arrayBody = []
     let arrayDates = []
@@ -187,48 +187,52 @@ function displayAddDate(id) {
 
     const datesSlected = document.querySelector('#datesSelected')
 
-    date.addEventListener('change', event => {
-        let dateValue = date.value
-
-        for (const dates of dateSlected) {
-            arrayDates.push(dates.innerHTML)
+    try {
+        const dataEvent = await displayEvent(id)
+        for (const data of dataEvent.dates) {
+            arrayDates.push(data.date)
         }
+        date.addEventListener('change', event => {
+            let dateValue = date.value
 
-        // création en DOME de la zone de selection de date
-        if (parseInt(arrayDates.indexOf(dateValue)) >= 0) {
-            alert(dateValue + ' se trouve dans l\'evenement')
+            // création en DOME de la zone de selection de date
+            if (parseInt(arrayDates.indexOf(dateValue)) >= 0) {
+                alert(dateValue + ' se trouve dans l\'evenement')
 
-        } else {
-            const selected = document.createElement('div')
-            const btnDateSelected = document.createElement('button')
-            datesSlected.appendChild(selected)
-            selected.innerHTML = dateValue
-            selected.classList.add('date-selected')
-            selected.appendChild(btnDateSelected)
-            btnDateSelected.innerHTML = 'X'
+            } else {
+                const selected = document.createElement('div')
+                const btnDateSelected = document.createElement('button')
+                datesSlected.appendChild(selected)
+                selected.innerHTML = dateValue
+                selected.classList.add('date-selected')
+                selected.appendChild(btnDateSelected)
+                btnDateSelected.innerHTML = 'X'
 
-            arrayDatesSelected.push(dateValue)
+                arrayDatesSelected.push(dateValue)
 
-            //supressionde la date
-            btnDateSelected.addEventListener('click', event => {
-                event.preventDefault()
-                datesSlected.removeChild(selected)
-                let datesPostion = arrayDatesSelected.indexOf(dateValue)
-                arrayDatesSelected.splice(datesPostion, 1)
-            })
-        }
-    })
-    // event Click Submit
-    btnSubmitDate.addEventListener('click', event => {
-        event.preventDefault()
+                //supressionde la date
+                btnDateSelected.addEventListener('click', event => {
+                    event.preventDefault()
+                    datesSlected.removeChild(selected)
+                    let datesPostion = arrayDatesSelected.indexOf(dateValue)
+                    arrayDatesSelected.splice(datesPostion, 1)
 
-        console.log(arrayDatesSelected);
-        arrayBody = {
-            "dates":
-                arrayDatesSelected
-        }
-        postDates(id, arrayBody)
-    })
+                    arrayDates = []
+                })
+            }
+        })
+        // event Click Submit
+        btnSubmitDate.addEventListener('click', event => {
+            event.preventDefault()
+            arrayBody = {
+                "dates":
+                    arrayDatesSelected
+            }
+            postDates(id, arrayBody)
+        })
+    } catch (error) {
+        console.error('Error processing data:', error);
+    }
 }
 
 export async function displayAddAttend(id) {
