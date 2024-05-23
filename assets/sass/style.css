@@ -113,17 +113,69 @@ section {
   #createEvent,
   #editEvent,
   #ajouterDisponibilite,
-  #SupprimerEvent {
-    margin-bottom: 20px; }
+  #SupprimerEvent,
+  #ajouterDates {
+    margin-bottom: 20px;
+    position: absolute;
+    width: 90%;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: #fff;
+    border-radius: 15px; }
+    #createEvent .dates-Select,
+    #editEvent .dates-Select,
+    #ajouterDisponibilite .dates-Select,
+    #SupprimerEvent .dates-Select,
+    #ajouterDates .dates-Select {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center; }
+      #createEvent .dates-Select .date-selected,
+      #editEvent .dates-Select .date-selected,
+      #ajouterDisponibilite .dates-Select .date-selected,
+      #SupprimerEvent .dates-Select .date-selected,
+      #ajouterDates .dates-Select .date-selected {
+        min-width: 50px;
+        height: 20px;
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border: 1px solid #000;
+        border-radius: 10px;
+        margin: 2px; }
+        #createEvent .dates-Select .date-selected button,
+        #editEvent .dates-Select .date-selected button,
+        #ajouterDisponibilite .dates-Select .date-selected button,
+        #SupprimerEvent .dates-Select .date-selected button,
+        #ajouterDates .dates-Select .date-selected button {
+          width: 20px !important;
+          height: 20px !important;
+          font-size: 10px;
+          padding: 0 !important;
+          margin-left: 10px; }
+    #createEvent .close,
+    #editEvent .close,
+    #ajouterDisponibilite .close,
+    #SupprimerEvent .close,
+    #ajouterDates .close {
+      position: relative;
+      left: 95%;
+      margin-bottom: 5px; }
     #createEvent h2,
     #editEvent h2,
     #ajouterDisponibilite h2,
-    #SupprimerEvent h2 {
+    #SupprimerEvent h2,
+    #ajouterDates h2 {
       margin-bottom: 10px; }
     #createEvent form,
     #editEvent form,
     #ajouterDisponibilite form,
-    #SupprimerEvent form {
+    #SupprimerEvent form,
+    #ajouterDates form {
       padding: 10px;
       background: gray;
       border: 1px solid #ccc;
@@ -131,7 +183,8 @@ section {
       #createEvent form .error,
       #editEvent form .error,
       #ajouterDisponibilite form .error,
-      #SupprimerEvent form .error {
+      #SupprimerEvent form .error,
+      #ajouterDates form .error {
         margin-top: -10px;
         margin-bottom: 10px; } }
 body.dark-theme {
