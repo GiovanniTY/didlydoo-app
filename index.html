@@ -58,12 +58,16 @@
             </div>
             <div id="ajouterDisponibilite"> <!-- Correction de l'ID -->
                 <h2>Ajouter des disponibilités</h2>
+                <button id="closeajouterDisponibilite" class="close">X</button>
                 <form id="ajouterDisponibiliteForm"> <!-- Correction de l'ID -->
                     <input type="hidden" id="disponibiliteEventId" name="disponibiliteEventId"> <!-- Correction de l'ID -->
-                    <label for="disponibilite">Disponibilité :</label> <!-- Correction de l'ID -->
-                    <input type="text" id="disponibilite" name="disponibilite"> <!-- Correction de l'ID -->
+                    <label for="attend">Attend :</label> <!-- Correction de l'ID -->
+                    <input type="text" id="attend" name="attend"> <!-- Correction de l'ID -->
                     <div id="disponibiliteError" class="error"></div> <!-- Correction de l'ID -->
-                    <button type="submit">Ajouter</button>
+                    <div class="date-attend">
+
+                    </div>
+                    <button type="submit" id="submitDisponibilite">Ajouter</button>
                 </form>
             </div>
             <div id="ajouterDates"> <!-- Correction de l'ID -->

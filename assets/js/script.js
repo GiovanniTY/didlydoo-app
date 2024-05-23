@@ -24,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCloseAddDates.addEventListener('click', event => {
         closeModale('#ajouterDates')
     })
+    // close modale Add date
+    const btnCloseAddDisponibilite = document.querySelector('#closeajouterDisponibilite')
+    btnCloseAddDisponibilite.addEventListener('click', event => {
+        closeModale('#ajouterDisponibilite')
+    })
 
     displayEvents()
 });

@@ -1,4 +1,4 @@
-import { postEvent, postDates } from "./postRequest.js"
+import { postEvent, postDates, postAttend } from "./postRequest.js"
 import { patchEvent } from "./patchRequest.js"
 import { closeModale } from "./eventModale.js"
 
@@ -20,6 +20,23 @@ export function displayEvents() {
         .catch(error => {
             console.error('Erreur:', error)
         })
+}
+/**
+ * Affiche tous les evenements 
+ */
+export async function displayEvent(id) {
+    try {
+        const response = await fetch('http://localhost:3000/api/events/' + id);
+        if (!response.ok) {
+            console.log('Not found');
+            return null;
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erreur:', error);
+        return null;
+    }
 }
 /**
  * Affiche les participants
@@ -67,7 +84,7 @@ export function displayAttendee(name) {
  * @param {*} methode d'envoi des donnée pour l'api
  * @param {*} id de l'event a modifier (methode Patch)
  */
-export function displayAddEvent(methode, id) {
+export async function displayAddEvent(methode, id) {
 
     let arrayBody = []
 
@@ -89,23 +106,16 @@ export function displayAddEvent(methode, id) {
     } else {
         btnSubmitEvent.innerHTML = "Patch Event"
 
-        fetch('http://localhost:3000/api/events/' + id)
-            .then(response => {
-                if (!response.ok) {
-                    console.log('no found')
-                }
-                return response.json()
-            })
-            .then(dataEvent => {
-                eventName.value = dataEvent.name
-                eventDescription.value = dataEvent.description
-                AuteurEven.value = dataEvent.author
+        try {
+            const dataEvent = await displayEvent(id)
+            eventName.value = dataEvent.name
+            eventDescription.value = dataEvent.description
+            AuteurEven.value = dataEvent.author
 
-                title.innerHTML = 'Patch un événement : ' + dataEvent.name
-            })
-            .catch(error => {
-                console.error('Erreur:', error)
-            })
+            title.innerHTML = 'Patch un événement : ' + dataEvent.name
+        } catch (error) {
+            console.error('Error processing data:', error)
+        }
     }
 
     btnSubmitEvent.addEventListener('click', event => {
@@ -132,11 +142,10 @@ export function displayAddEvent(methode, id) {
             const auteurEvenError = modale.querySelector('#AuteurEvenError')
 
             //refresh input
-            eventNameError.innerHTML =''
-            eventDescriptionError.innerHTML =''
-            auteurEvenError.innerHTML =''
+            eventNameError.innerHTML = ''
+            eventDescriptionError.innerHTML = ''
+            auteurEvenError.innerHTML = ''
 
-             console.log(modale,eventNameError,eventDescriptionError,auteurEvenError);
             if (eventName.value == '')
                 eventNameError.innerHTML = 'Requis'
             if (eventDescription.value == '')
@@ -147,7 +156,10 @@ export function displayAddEvent(methode, id) {
         }
     })
 }
-
+/**
+ * Ajote des dates
+ * @param {*} id event
+ */
 function displayAddDate(id) {
 
     let arrayBody = []
@@ -174,8 +186,6 @@ function displayAddDate(id) {
     const dateSlected = theadElem.querySelectorAll('th')
 
     const datesSlected = document.querySelector('#datesSelected')
-
-
 
     date.addEventListener('change', event => {
         let dateValue = date.value
@@ -219,6 +229,80 @@ function displayAddDate(id) {
         }
         postDates(id, arrayBody)
     })
+}
+
+export async function displayAddAttend(id) {
+
+    let arrayDates = []
+    let arrayDatesSelected = []
+    let cpt = 0
+
+    //show modale
+    const modale = document.querySelector('#ajouterDisponibilite')
+    modale.style.display = 'block'
+    const dateAttend = modale.querySelector('.date-attend')
+    const btnSubmit = modale.querySelector('#submitDisponibilite')
+    const name = modale.querySelector('#attend')
+
+
+    try {
+        const dataEvent = await displayEvent(id)
+
+        if (dataEvent.dates.length == 0) {
+            displayAddDate(id)
+            closeModale('#ajouterDisponibilite')
+
+        } else {
+            for (const data of dataEvent.dates) {
+
+                const dateBox = document.createElement('div')
+                const label = document.createElement('lable')
+                const checkBox = document.createElement('input')
+                checkBox.setAttribute('type', 'checkbox')
+
+                dateAttend.appendChild(dateBox)
+                dateBox.appendChild(label)
+                label.innerHTML = data.date
+                label.setAttribute('for', 'checkBox' + cpt)
+                dateBox.appendChild(checkBox)
+                checkBox.id = 'checkBox' + cpt
+                checkBox.checked = false
+
+                arrayDates.push(data.date)
+
+                cpt++
+            }
+
+            btnSubmit.addEventListener('click', event => {
+
+                event.preventDefault()
+                if (name.value != '') {
+                    for (let i = 0; i < arrayDates.length; i++) {
+                        const checkBoxSelected = dateAttend.querySelector('#checkBox' + i)
+                        console.log(checkBoxSelected.checked);
+
+                        const selected = "available:" + checkBoxSelected.checked
+                        arrayDatesSelected.push({ date: arrayDates[i], available: checkBoxSelected.checked })
+                    }
+
+                    postAttend(id, arrayDatesSelected, name.value)
+                } else {
+
+                    const disponibiliteError = modale.querySelector('#disponibiliteError')
+
+                    if (name.value == '')
+                        disponibiliteError.innerHTML = 'Requis'
+                }
+            })
+        }
+
+
+
+        console.log(arrayDates);
+    } catch (error) {
+        console.error('Error processing data:', error);
+    }
+
 }
 
 /**
@@ -366,6 +450,12 @@ function creatDomEvent(data) {
         btnPatchEvent.id = 'btnAddDates'
         btnPatchEvent.innerHTML = 'Patch Event'
 
+        // create btn DOM Add Attend
+        const btnPostAttend = document.createElement('button')
+        btnDiv.appendChild(btnPostAttend)
+        btnPostAttend.id = 'btnAddDates'
+        btnPostAttend.innerHTML = 'Add Attend'
+
         //event
         btnAddDates.addEventListener('click', event => {
             displayAddDate(idEvent)
@@ -374,6 +464,11 @@ function creatDomEvent(data) {
         //event
         btnPatchEvent.addEventListener('click', event => {
             displayAddEvent('patch', idEvent)
+        })
+
+        //event
+        btnPostAttend.addEventListener('click', event => {
+            displayAddAttend(idEvent)
         })
     }
 }

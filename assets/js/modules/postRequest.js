@@ -1,4 +1,4 @@
-import { displayEvents , displayMessage} from './getRequest.js'
+import { displayEvents, displayMessage } from './getRequest.js'
 import { closeModale } from './eventModale.js';
 
 /**
@@ -44,11 +44,38 @@ export async function postDates(id, dataBody) {
         closeModale('#ajouterDates')
         displayMessage('Success : Add Date(s) : ' + dataBody.dates)
 
-        console.log(id,dataBody);
-       console.log("Success:", result);
+        console.log(id, dataBody);
+        console.log("Success:", result);
     } catch (error) {
         console.error("Error:", error);
         closeModale('#ajouterDates')
         displayMessage('Success : Add Date(s) : ' + dataBody.dates)
+    }
+}
+
+export async function postAttend(id, dataBody, name) {
+
+    try {
+        const response = await fetch("http://localhost:3000/api/events/" + id + "/attend", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                dates: dataBody
+            })
+        });
+
+        const result = await response.json();
+        closeModale('#ajouterDisponibilite')
+        displayMessage('Success : Add Date(s) pour  : ' + name)
+
+        console.log(id, dataBody);
+        console.log("Success:", result);
+    } catch (error) {
+        console.error("Error:", error);
+        closeModale('#ajouterDisponibilite')
+        displayMessage('Success : Add Date(s) : ' + name)
     }
 }
