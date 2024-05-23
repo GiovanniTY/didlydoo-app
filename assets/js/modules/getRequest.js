@@ -59,7 +59,7 @@ export function displayAttendees() {
         })
 }
 /**
- * affiche un partiicpant selectionner 
+ * affiche un partiicpant en fonction de son nom
  * @param {*} name nom du participant
  */
 export async function displayAttendee(name) {
@@ -116,7 +116,11 @@ export async function displayAddEvent(methode, id) {
             console.error('Error processing data:', error)
         }
     }
-
+    /**
+     * Event click
+     * en fonction de la methode ceci appel une fonction
+     * Post :: verifie si tous les input sont encodées, si pas message errer dans le modale
+     */
     btnSubmitEvent.addEventListener('click', event => {
         event.preventDefault()
 
@@ -185,12 +189,20 @@ async function displayAddDate(id) {
     const dateSlected = theadElem.querySelectorAll('th')
 
     const datesSlected = document.querySelector('#datesSelected')
-
+    /**
+     * recupere les data de l'event (id) dans l'api
+     */
     try {
         const dataEvent = await displayEvent(id)
         for (const data of dataEvent.dates) {
             arrayDates.push(data.date)
         }
+        /**
+         * event Change add date
+         * Verifie si la date existe ==>
+         * oui : message erreur
+         * Non: Ajout dans un element la date et un bouton delete
+         */
         date.addEventListener('change', event => {
             let dateValue = date.value
 
@@ -253,10 +265,15 @@ export async function displayAddAttend(id) {
     const name = modale.querySelector('#attend')
     dateAttend.innerHTML = '' //initialise l'element
 
-    // verifie si le nom encodé existe deja 
+    /**
+     * recupere les données des dates dans l'api
+     */
     try {
-        const dataEvent = await displayEvent(id) // function api event via id
-
+        const dataEvent = await displayEvent(id)
+        /**
+         * event du Changement de l'input name 
+         * Verifie via les data de l'api si le name existe deja dans l'event 
+         */
         name.addEventListener('change', async event => {
 
             try {
@@ -275,14 +292,19 @@ export async function displayAddAttend(id) {
                 console.error('Error processing data:', error);
             }
         })
-
+        /**
+         * Si il n'y a pas de dates dans l'event 
+         * Affiche le modal Adddates et ferme le modale AddAttend
+         */
         if (dataEvent.dates.length == 0) {
             displayAddDate(id)
             closeModale('#ajouterDisponibilite')
 
         } else {
             for (const data of dataEvent.dates) {
-
+                /**
+                 * recupere les data de l'api et affiche via DOMles disponibilitées
+                 */
                 const dateBox = document.createElement('div')
                 const label = document.createElement('lable')
                 const checkBox = document.createElement('input')
@@ -300,11 +322,14 @@ export async function displayAddAttend(id) {
 
                 cpt++
             }
-
+            /**
+             * envent click du bouton Submit
+             */
             btnSubmit.addEventListener('click', event => {
 
                 event.preventDefault()
-                if (name.value != '' && nameExist === -1) {
+                if (name.value != '' && nameExist === -1) { 
+
                     for (let i = 0; i < arrayDates.length; i++) {
                         const checkBoxSelected = dateAttend.querySelector('#checkBox' + i)
                         console.log(checkBoxSelected.checked);
@@ -315,7 +340,7 @@ export async function displayAddAttend(id) {
 
                     postAttend(id, arrayDatesSelected, name.value)
                 } else {
-
+                    // indique les messages d'erruer 
                     const disponibiliteError = modale.querySelector('#disponibiliteError')
 
                     if (name.value == '')
@@ -326,11 +351,10 @@ export async function displayAddAttend(id) {
                 }
             })
         }
-        console.log(arrayDates);
+        //console.log(arrayDates);
     } catch (error) {
         console.error('Error processing data:', error);
     }
-
 }
 
 /**
@@ -420,7 +444,6 @@ function creatDomEvent(data) {
                         arrayAttendees[name] = {}
                     }
                     arrayAttendees[name][availability.date] = available
-
                 }
             }
 
@@ -500,7 +523,10 @@ function creatDomEvent(data) {
         })
     }
 }
-
+/**
+ * Affiche un modale pour infomer l'etat de l'action 
+ * @param {*} result 
+ */
 export function displayMessage(result) {
 
     //show modale
@@ -511,7 +537,7 @@ export function displayMessage(result) {
     const modaleText = modale.querySelector('p')
     modaleText.innerHTML = result
 
-    console.log(modaleText);
+    //console.log(modaleText);
 
     // close modale messageLog
     btnCloseModale.addEventListener('click', event => {

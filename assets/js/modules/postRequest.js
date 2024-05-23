@@ -28,7 +28,11 @@ export async function postEvent(dataBody) {
     }
 }
 
-
+/**
+ * Ajoute des date dans un event
+ * @param {*} id de l'event
+ * @param {Array} dataBody array qui regroupe tous les dates selectionnées
+ */
 export async function postDates(id, dataBody) {
 
     try {
@@ -41,8 +45,8 @@ export async function postDates(id, dataBody) {
         });
 
         const result = await response.json();
-        closeModale('#ajouterDates')
-        displayMessage('Success : Add Date(s) : ' + dataBody.dates)
+        closeModale('#ajouterDates') // Close le modale 
+        displayMessage('Success : Add Date(s) : ' + dataBody.dates) // modale avec message du status
 
         console.log(id, dataBody);
         console.log("Success:", result);
@@ -52,7 +56,12 @@ export async function postDates(id, dataBody) {
         displayMessage('Success : Add Date(s) : ' + dataBody.dates)
     }
 }
-
+/**
+ * Ajout une Attend dans un event
+ * @param {*} id de l'event
+ * @param {Array} dataBody regroupe les dates de l'event et la disponibilité 
+ * @param {*} name de l'attend
+ */
 export async function postAttend(id, dataBody, name) {
 
     try {

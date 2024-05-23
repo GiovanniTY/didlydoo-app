@@ -17,8 +17,8 @@ export async function patchEvent(dataBody, id) {
         });
 
         const result = await response.json();
-        closeModale('#createEvent')
-        displayMessage('Success : Patch event : ' + dataBody.name)
+        closeModale('#createEvent') // Close le modale 
+        displayMessage('Success : Patch event : ' + dataBody.name) // modale avec message du status
 
         console.log("Success:", result);
     } catch (error) {
