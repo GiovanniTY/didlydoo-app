@@ -1,4 +1,5 @@
 import { postEvent, postDates } from "./postRequest.js"
+import { patchEvent } from "./patchRequest.js"
 
 
 /**
@@ -79,11 +80,32 @@ export function displayAddEvent(methode, id) {
     const eventDescription = document.querySelector('#eventDescription')
     const AuteurEven = document.querySelector('#AuteurEven')
     const btnSubmitEvent = document.querySelector('#submitEvent')
+    const titleParent = document.querySelector('#createEvent')
+    const title = titleParent.querySelector('h2')
 
-    if (methode == 'post')
+    if (methode == 'post') {
         btnSubmitEvent.innerHTML = 'Add Event'
-    else
+    } else {
         btnSubmitEvent.innerHTML = "Patch Event"
+
+        fetch('http://localhost:3000/api/events/' + id)
+            .then(response => {
+                if (!response.ok) {
+                    console.log('no found')
+                }
+                return response.json()
+            })
+            .then(dataEvent => {
+                eventName.value = dataEvent.name
+                eventDescription.value = dataEvent.description
+                AuteurEven.value = dataEvent.author
+
+                title.innerHTML = 'Patch un événement : ' + dataEvent.name
+            })
+            .catch(error => {
+                console.error('Erreur:', error)
+            })
+    }
 
     btnSubmitEvent.addEventListener('click', event => {
         event.preventDefault()
@@ -96,9 +118,20 @@ export function displayAddEvent(methode, id) {
         }
 
         if (methode == 'post') {
+            arrayBody = {
+                "name": eventName.value,
+                "description": eventDescription.value,
+                "author": AuteurEven.value,
+                "dates": []
+            }
             postEvent(arrayBody)
         } else if (methode == 'patch') {
-            //patchEvent(arrayBody)
+            arrayBody = {
+                "name": eventName.value,
+                "description": eventDescription.value,
+                "author": AuteurEven.value,
+            }
+            patchEvent(arrayBody, id)
         }
     })
 }
@@ -283,9 +316,20 @@ function creatDomEvent(data) {
         btnAddDates.id = 'btnAddDates'
         btnAddDates.innerHTML = 'Add Dates'
 
+        // create btn DOM
+        const btnPatchEvent = document.createElement('button')
+        btnDiv.appendChild(btnPatchEvent)
+        btnPatchEvent.id = 'btnAddDates'
+        btnPatchEvent.innerHTML = 'Patch Event'
+
         //event
         btnAddDates.addEventListener('click', event => {
             displayAddDate(idEvent)
+        })
+
+        //event
+        btnPatchEvent.addEventListener('click', event => {
+            displayAddEvent('patch', idEvent)
         })
     }
 }
