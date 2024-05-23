@@ -246,7 +246,29 @@ form {
   display: none;
   background-color: #fff;
   border-radius: 15px;
-
+  .dates-Select{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .date-selected{
+      min-width: 50px;
+      height: 20px;
+      padding: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      border: 1px solid #000;
+      border-radius: 10px;
+      margin: 2px ;
+      button{
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 10px;
+        padding: 0 !important;
+        margin-left: 10px;
+      }
+    }
+  }
   .close{
     position: relative;
     left: 95%;

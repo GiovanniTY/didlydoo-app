@@ -140,6 +140,13 @@ function displayAddDate(id) {
 
     let arrayBody = []
     let arrayDates = []
+    let arrayDatesSelected = []
+
+    //curent Date
+    const currentDate = new Date()
+    const currentDateMonth = ((currentDate.getMonth() + 1) < 9) ? '0' + (currentDate.getMonth() + 1) : (currentDate.getMonth() + 1)
+    const currentDateDate = (currentDate.getDate() < 9) ? '0' + currentDate.getDate() : currentDate.getDate()
+    const curentDateFormat = currentDate.getFullYear() + '-' + currentDateMonth + '-' + currentDateDate
 
     //show modale
     const modale = document.querySelector('#ajouterDates')
@@ -147,33 +154,60 @@ function displayAddDate(id) {
 
     const addDatesFrom = document.querySelector('#ajouterDatesForm')
     const date = addDatesFrom.querySelector('#disponibilite')
+    date.setAttribute('min', curentDateFormat);
     const btnSubmitDate = addDatesFrom.querySelector('#btnAddDate')
     btnSubmitDate.innerHTML = 'Add Date'
 
     const theadElem = document.querySelector('thead')
     const dateSlected = theadElem.querySelectorAll('th')
 
-    for (const dates of dateSlected) {
+    const datesSlected = document.querySelector('#datesSelected')
 
-        arrayDates.push(dates.innerHTML)
-    }
 
+
+    date.addEventListener('change', event => {
+        let dateValue = date.value
+
+        for (const dates of dateSlected) {
+            arrayDates.push(dates.innerHTML)
+        }
+
+        // création en DOME de la zone de selection de date
+        if (parseInt(arrayDates.indexOf(dateValue)) >= 0) {
+            alert(dateValue + ' se trouve dans l\'evenement')
+
+        } else {
+            const selected = document.createElement('div')
+            const btnDateSelected = document.createElement('button')
+            datesSlected.appendChild(selected)
+            selected.innerHTML = dateValue
+            selected.classList.add('date-selected')
+            selected.appendChild(btnDateSelected)
+            btnDateSelected.innerHTML = 'X'
+
+            //supressionde la date
+            btnDateSelected.addEventListener('click', event => {
+                event.preventDefault()
+                datesSlected.removeChild(selected)
+            })
+        }
+    })
+    // event Click Submit
     btnSubmitDate.addEventListener('click', event => {
         event.preventDefault()
 
-        //console.log(arrayDates.indexOf(date.value));
+        const datesAllSelected = datesSlected.querySelectorAll('div')
+        console.log(datesAllSelected);
+        // ajouter dans la arrayDatesSelected les date selectionnées
+        for (const date of datesAllSelected) {
+            arrayDatesSelected.push(date.innerText.substring(0, 10))
 
-        if (parseInt(arrayDates.indexOf(date.value)) >= 0) {
-            alert(date.value + ' se trouve dans l\'evenement')
-
-        } else {
-            arrayBody = {
-                "dates": [
-                    date.value
-                ]
-            }
-            postDates(id, arrayBody)
         }
+        arrayBody = {
+            "dates": 
+                arrayDatesSelected
+        }
+       postDates(id, arrayBody)
     })
 }
 
