@@ -28,13 +28,13 @@
                 <button id="closeCreateEvent" class="close">X</button>
                 <form id="createEventForm">
                     <label for="eventName">Nom :</label>
-                    <input type="text" id="eventName" name="eventName" maxlength="256">
+                    <input type="text" id="eventName" name="eventName" maxlength="256" required>
                     <div id="eventNameError" class="error"></div>
                     <label for="eventDescription">Description :</label>
-                    <textarea id="eventDescription" name="eventDescription" maxlength="256"></textarea>
+                    <textarea id="eventDescription" name="eventDescription" maxlength="256" required></textarea>
                     <div id="eventDescriptionError" class="error"></div>
                     <label for="AuteurEven">Auteur :</label>
-                    <input type="text" id="AuteurEven" name="AuteurEven" maxlength="256">
+                    <input type="text" id="AuteurEven" name="AuteurEven" maxlength="256" required>
                     <div id="AuteurEvenError" class="error"></div>
                     <button type="submit" id="submitEvent">Créer</button>
                 </form>

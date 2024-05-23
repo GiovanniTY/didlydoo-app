@@ -111,7 +111,7 @@ export function displayAddEvent(methode, id) {
     btnSubmitEvent.addEventListener('click', event => {
         event.preventDefault()
 
-        if (methode == 'post') {
+        if (methode == 'post' && eventName.value != '' & eventDescription.value != '' && AuteurEven.value != '') {
             arrayBody = {
                 "name": eventName.value,
                 "description": eventDescription.value,
@@ -126,6 +126,24 @@ export function displayAddEvent(methode, id) {
                 "author": AuteurEven.value,
             }
             patchEvent(arrayBody, id)
+        } else {
+            const eventNameError = modale.querySelector('#eventNameError')
+            const eventDescriptionError = modale.querySelector('#eventDescriptionError')
+            const auteurEvenError = modale.querySelector('#AuteurEvenError')
+
+            //refresh input
+            eventNameError.innerHTML =''
+            eventDescriptionError.innerHTML =''
+            auteurEvenError.innerHTML =''
+
+             console.log(modale,eventNameError,eventDescriptionError,auteurEvenError);
+            if (eventName.value == '')
+                eventNameError.innerHTML = 'Requis'
+            if (eventDescription.value == '')
+                eventDescriptionError.innerHTML = 'Requis'
+            if (AuteurEven.value == '')
+                auteurEvenError.innerHTML = 'Requis'
+
         }
     })
 }
@@ -186,7 +204,7 @@ function displayAddDate(id) {
                 event.preventDefault()
                 datesSlected.removeChild(selected)
                 let datesPostion = arrayDatesSelected.indexOf(dateValue)
-                arrayDatesSelected.splice(datesPostion,1)
+                arrayDatesSelected.splice(datesPostion, 1)
             })
         }
     })
@@ -196,10 +214,10 @@ function displayAddDate(id) {
 
         console.log(arrayDatesSelected);
         arrayBody = {
-            "dates": 
+            "dates":
                 arrayDatesSelected
         }
-       postDates(id, arrayBody)
+        postDates(id, arrayBody)
     })
 }
 
@@ -360,15 +378,15 @@ function creatDomEvent(data) {
     }
 }
 
-export function displayMessage(result){
+export function displayMessage(result) {
 
     //show modale
     const eventElem = document.querySelector('.events')
-    const modale =  eventElem.querySelector('#messageLog')
-    const btnCloseModale =  eventElem.querySelector('#closeMessage')
+    const modale = eventElem.querySelector('#messageLog')
+    const btnCloseModale = eventElem.querySelector('#closeMessage')
     modale.style.display = 'block'
     const modaleText = modale.querySelector('p')
-    modaleText.innerHTML= result
+    modaleText.innerHTML = result
 
     console.log(modaleText);
 
