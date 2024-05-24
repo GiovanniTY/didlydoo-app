@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayAddEvent('post')
     })
 
-    // close modale Event
+   // close modale Event
     const btnCloseCreateEvent = document.querySelector('#closeCreateEvent')
     btnCloseCreateEvent.addEventListener('click', event => {
         closeModale('#createEvent')
