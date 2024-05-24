@@ -6,12 +6,12 @@ Date limite : 24/05/2024 - 16h50
 Équipe : Ludovic, Stacy, Giovani
 
 ## Technologies Utilisées:
-
+### languages
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![SASS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 
-## outils:
+### outils:
 -![Postman](https://img.shields.io/badge/Postman-orange)
 -![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 -![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
