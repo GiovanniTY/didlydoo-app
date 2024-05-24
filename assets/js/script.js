@@ -2,8 +2,6 @@ import { displayEvents, displayAttendees, displayAttendee, displayAddEvent } fro
 import { toggleDarkMode } from './darkmode.js';
 import { closeModale } from './modules/eventModale.js';
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const darkModeButton = document.getElementById('dark-mode-btn');
     darkModeButton.addEventListener('click', toggleDarkMode);
