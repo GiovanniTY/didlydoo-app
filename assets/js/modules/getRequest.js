@@ -1,6 +1,7 @@
 import { postEvent, postDates, postAttend } from "./postRequest.js"
 import { patchEvent, patchAttend } from "./patchRequest.js"
 import { closeModale } from "./eventModale.js"
+import { deleteEvent } from "./DelRequest.js"
 
 
 /**
@@ -403,9 +404,11 @@ function creatDomEvent(data) {
         btnDel.innerHTML = 'del'
 
         // Event del
-        btnDel.addEventListener('click', event => {
-            console.log('edit' + ' - id:' + idEvent)
+        btnDel.addEventListener('click', e => {
+            //console.log('edit' + ' - id:' + idEvent)
+            displayDeleteEvent(idEvent, event.name);
         })
+
         // create DOM Description
         const eventDescriptionElem = document.createElement('div')
         eventElem.appendChild(eventDescriptionElem)
@@ -502,48 +505,7 @@ function creatDomEvent(data) {
                 }
             }
         }
-        console.log(arrayAttendees)
-
-        /**
-         * list le arrayAttendees et l'ajoute via le DOM
-         */
-        for (const name in arrayAttendees) {
-            // create de row
-            const trAttendee = document.createElement('tr')
-            tbody.appendChild(trAttendee)
-            // create de column des noms
-            const tdList = document.createElement('td')
-            trAttendee.appendChild(tdList)
-            tdList.innerHTML = name
-            //create button edit
-            const btnEdit = document.createElement('button')
-            tdList.append(btnEdit)
-            btnEdit.id = name + idEvent
-            btnEdit.innerHTML = 'Edit'
-
-
-            // Event 
-            btnEdit.addEventListener('click', event => {
-                console.log('edit' + name + ' - id:' + idEvent)
-            })
-
-            const availabilityBol = arrayAttendees[name]
-
-            for (const dateInfo in availabilityBol) {
-
-                // creat de column des disponibilitées
-                const tdList2 = document.createElement('td')
-                trAttendee.appendChild(tdList2)
-                if (availabilityBol[dateInfo])
-                    tdList2.innerHTML = 'V'
-                else if (availabilityBol[dateInfo] == null)
-                    tdList2.innerHTML = ''
-                else
-                    tdList2.innerHTML = 'X'
-            }
-        }
-
-
+        //console.log(arrayAttendees)
 
         // btn div
         const btnDiv = document.createElement('div')
@@ -685,4 +647,21 @@ async function displayPatchAttend(id, UserName) {
     } catch (error) {
         console.error('Error processing data:', error);
     }
-};
+}
+
+export function displayDeleteEvent(id, event) {
+
+    //show modale
+    const modale = document.querySelector('#deleteEvent')
+    modale.style.display = 'block'
+
+    const deleteMesage = modale.querySelector('.delet-event')
+    deleteMesage.innerHTML = 'Delete : ' + event
+
+    const btnDelete = modale.querySelector('#submitDelete')
+    console.log(event);
+    btnDelete.addEventListener('click', event => {
+        deleteEvent(id)
+    })
+
+}

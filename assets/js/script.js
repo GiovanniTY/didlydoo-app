@@ -27,6 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCloseAddDisponibilite.addEventListener('click', event => {
         closeModale('#ajouterDisponibilite')
     })
+    // close modale Delete Event
+    const btnCloseDeleteEvent = document.querySelector('#closeDeleteEvent')
+    btnCloseDeleteEvent.addEventListener('click', event => {
+        closeModale('#deleteEvent')
+    })
+
 
     displayEvents()
 });

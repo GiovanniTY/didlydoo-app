@@ -1,23 +1,26 @@
-import { displayEvents } from './getRequest.js'
+import { closeModale } from './eventModale.js';
+import { displayMessage } from './getRequest.js';
 /**
  * create New Event dans l'api via une methode Post
  * @param {*} dataBody données retournées par la formulaire ' add Event '
  */
-export async function postEvent(dataBody) {
-  try {
-      const response = await fetch("http://localhost:3000/api/events/", {
-          method: "DEL",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dataBody),
-      });
+export async function deleteEvent(id, name) {
+    try {
+        const response = await fetch("http://localhost:3000/api/events/" + id, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
 
-      const result = await response.json();
+        const result = await response.json();
 
-      console.log("Success:", result);
-      window.location.href = "/success"; // Redirect to a success page or another URL
-  } catch (error) {
-      console.error("Error:", error);
-  }
+        console.log("Success:", result);
+        closeModale('#deleteEvent')
+        displayMessage('Success : Delete  : ' + name)
+    } catch (error) {
+        console.error("Error:", error);
+        closeModale('#deleteEvent')
+        displayMessage('Error : Delete  : ' + name)
+    }
 }

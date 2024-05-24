@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/sass/style.css">
     <script src="assets/js/script.js" type="module"></script>
-    <script src="assets/js/modules/DelRequest.js"></script>
     <title>didlydoo-app</title>
     
 </head>
@@ -84,7 +83,16 @@
                     <button type="submit" id="btnAddDate">Ajouter</button>
                 </form>
             </div>
-            
+            <div id="deleteEvent"> <!-- Correction de l'ID -->
+                <h2>Delete l'evenement</h2>
+                <form id="deleteEventForm"> <!-- Correction de l'ID -->
+                    <div class="delet-event">
+                        <p></p>
+                    </div>
+                    <button type="submit" id="submitDelete">Supprimer</button>
+                    <button type="submit" id="closeDeleteEvent">Canceled</button>
+                </form>
+            </div>
         </div>
     </main>
 </body>
