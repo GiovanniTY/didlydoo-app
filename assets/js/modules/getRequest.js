@@ -276,21 +276,26 @@ export async function displayAddAttend(id) {
          */
         name.addEventListener('change', async event => {
 
-            /* try {
-                 const dataAttend = await displayAttendee(name.value)
- 
-                 for (const event of dataAttend.events) {
-                     arrayNmaExists.push(event.id)
-                 }
-                 const idString = id
-                 nameExist = arrayNmaExists.indexOf(idString)
-                 console.log(nameExist);
-                 console.log('iD:' + arrayNmaExists);
-                 console.log(id.toString());
- 
-             } catch (error) {
-                 console.error('Error processing data:', error);
-             }*/
+            try {
+                const dataAttend = await displayAttendee(name.value)
+
+                if (dataAttend == null) {
+                    nameExist = -1
+                } else {
+                    for (const event of dataAttend.events) {
+                        arrayNmaExists.push(event.id)
+                    }
+                    const idString = id
+                    nameExist = arrayNmaExists.indexOf(idString)
+                    console.log(nameExist);
+                    console.log('iD:' + arrayNmaExists);
+                    console.log(id.toString());
+                }
+
+
+            } catch (error) {
+                console.error('Error processing data:', error);
+            }
         })
         /**
          * Si il n'y a pas de dates dans l'event 
@@ -329,7 +334,7 @@ export async function displayAddAttend(id) {
 
                 event.preventDefault()
                 //if (name.value != '' && nameExist === -1) {
-                  if (name.value != '') {
+                if (name.value != '' && nameExist === -1) {
 
                     for (let i = 0; i < arrayDates.length; i++) {
                         const checkBoxSelected = dateAttend.querySelector('#checkBox' + i)
