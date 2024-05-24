@@ -2,7 +2,9 @@
 
 ## Délais et Équipe: 
 Durée : 4 jours
+
 Date limite : 24/05/2024 - 16h50
+
 Équipe : Ludovic, Stacy, Giovani
 
 ## Technologies Utilisées:
@@ -24,9 +26,14 @@ Sur la page d'accueil, l'utilisateur doit pouvoir si retrouver facilement (pense
 
 ## mission:
 Didlydoo est un site Web révolutionnaire qui vous permet de créer des événements et de permettre à chacun d'ajouter ses disponibilités pour trouver la meilleure date pour chacun.
-Vous avez été embauché par une startup "vraiment disruptive", pour créer un outil révolutionnaire pour planifier des événements entre amis et proches. Présentation de Didlydoo, l'organisateur d'événements !
 
-Un développeur backend a déjà créé une API pour l'outil, vous pouvez donc vous concentrer sur le frontend. La liste des points de terminaison est disponible ci-dessous.
+Vous avez été embauché par une startup "vraiment disruptive", pour créer un outil révolutionnaire pour planifier des événements entre amis et proches. 
+
+Présentation de Didlydoo, l'organisateur d'événements !
+
+Un développeur backend a déjà créé une API pour l'outil, vous pouvez donc vous concentrer sur le frontend. 
+
+La liste des points de terminaison est disponible ci-dessous.
 
 ## Exigences:
 - Le code HTML doit être bien structuré et facile à lire.
