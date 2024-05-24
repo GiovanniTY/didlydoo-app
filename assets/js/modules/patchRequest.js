@@ -5,7 +5,7 @@ import { closeModale } from './eventModale.js';
 import { displayMessage } from './getRequest.js';
 
 /**
- * create New Event dans l'api via une methode Post
+ * Modifie New Event dans l'api via une methode Post
  * @param {*} dataBody données retournées par la formulaire ' add Event '
  */
 export async function patchEvent(dataBody, id) {
@@ -30,6 +30,12 @@ export async function patchEvent(dataBody, id) {
         displayMessage('Error : Patch event : ' + dataBody.name)
     }
 }
+/**
+ * Modifie attend  dans l'api via une methode Post
+ * @param {*} id de l'event
+ * @param {*} dataBody donnée des modifications dates
+ * @param {*} name de l'attend
+ */
 export async function patchAttend(id, dataBody, name) {
     console.log(id,dataBody,name,);
     try {

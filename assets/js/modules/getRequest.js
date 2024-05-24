@@ -549,7 +549,11 @@ export function displayMessage(result) {
 
 
 }
-
+/**
+ * modifie les disponibilitées de l'attend
+ * @param {*} id de l'event
+ * @param {*} UserName nom de l'attend
+ */
 async function displayPatchAttend(id, UserName) {
     let arrayDisponibilite = [];
     //show modale
@@ -563,11 +567,18 @@ async function displayPatchAttend(id, UserName) {
 
     name.value = UserName
 
+    /**
+     * recupère les données ddes api
+     */
     try {
         const dataAttend = await displayAttendee(name.value)
         const dataEvent = await displayEvent(id)
 
-        console.log(arrayDisponibilite);
+        //console.log(arrayDisponibilite);
+        /**
+         * liste les dates de l'event (id)
+         * création des elements dans le DOM
+         */
         for (const data of dataEvent.dates) {
             const dateBox = document.createElement('div')
             const label = document.createElement('lable')
@@ -581,6 +592,9 @@ async function displayPatchAttend(id, UserName) {
             dateBox.appendChild(checkBox)
             checkBox.id = data.date
 
+            /**
+             * verifie les dates de l'event et les disponibilté de l'attend et affiche via le DOM
+             */
             for (const dataDispo of dataAttend.events) {
                 if (dataDispo.id === id) {
                     for (const dataDispo2 of dataDispo.dates) {
@@ -591,10 +605,14 @@ async function displayPatchAttend(id, UserName) {
                 }
             }
         }
-
+        /**
+         * event submit 
+         * recupère dans le DOM tous les input[type=checkBox] (id et Checked)
+         * structure le Array avec les données des Input pour Patch dans l'Api
+         */
         btnSubmit.addEventListener('click',event =>{
             event.preventDefault()
-            arrayDisponibilite = []
+            arrayDisponibilite = [] //initialise le Array
 
             const checkboxAll = dateAttendElem.querySelectorAll('input[type=checkBox]')
             for (const checkbox of checkboxAll) {
