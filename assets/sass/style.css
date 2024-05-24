@@ -117,7 +117,7 @@ section {
   #ajouterDates,
   #messageLog {
     margin-bottom: 20px;
-    position: absolute;
+    position: fixed;
     width: 90%;
     padding: 10px;
     top: 50%;
@@ -274,7 +274,7 @@ body.dark-theme header {
   #ajouterDates,
   #messageLog {
     margin-bottom: 20px;
-    position: absolute;
+    position: fixed;
     width: 90%;
     padding: 10px;
     top: 50%;
