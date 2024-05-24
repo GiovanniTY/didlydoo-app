@@ -12,11 +12,11 @@ Date limite : 24/05/2024 - 16h50
 ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 
 ### outils:
--![Postman](https://img.shields.io/badge/Postman-orange)
--![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
--![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
--![Gather](https://img.shields.io/badge/Gather-gather?style=for-the-badge&logo=Gather&logoColor=blue&labelColor=8F03FD&color=8F03FD&cacheSeconds=3000)
--![VSCode](https://img.shields.io/badge/Visual-Studio-Code?style=for-the-badge&logo=Visual%20Studio%20Code&labelColor=blue&color=blue)
+![Postman](https://img.shields.io/badge/Postman-orange)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![Gather](https://img.shields.io/badge/Gather-gather?style=for-the-badge&logo=Gather&logoColor=blue&labelColor=8F03FD&color=8F03FD&cacheSeconds=3000)
+![VSCode](https://img.shields.io/badge/Visual-Studio-Code?style=for-the-badge&logo=Visual%20Studio%20Code&labelColor=blue&color=blue)
 
 ## Spécifications:
 ### Les incontournables:
