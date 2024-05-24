@@ -303,7 +303,7 @@ export async function displayAddAttend(id) {
         } else {
             for (const data of dataEvent.dates) {
                 /**
-                 * recupere les data de l'api et affiche via DOMles disponibilitées
+                 * recupere les data de l'api et affiche via DOM les disponibilitées
                  */
                 const dateBox = document.createElement('div')
                 const label = document.createElement('lable')
