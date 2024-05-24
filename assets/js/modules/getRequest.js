@@ -467,7 +467,8 @@ function creatDomEvent(data) {
 
                 // Event 
                 btnEdit.addEventListener('click', event => {
-                    console.log('edit' + name + ' - id:' + idEvent)
+                    //console.log('edit' + name + ' - id:' + idEvent)
+                    displayPatchAttend(idEvent, name)
                 })
                 const availabilityBol = arrayAttendees[name]
 
@@ -548,3 +549,50 @@ export function displayMessage(result) {
 
 
 }
+
+  async function displayPatchAttend(id, UserName) {
+    //console.log(id, name);
+    let arrayDisponibilite = [];
+  //show modale
+  const modale = document.querySelector('#ajouterDisponibilite')
+  modale.style.display = 'block'
+  const dateAttendElem= modale.querySelector('.date-attend')
+  const btnSubmit = modale.querySelector('#submitDisponibilite')
+  const name = modale.querySelector('#attend')
+  dateAttendElem.innerHTML = '' //initialise l'element
+
+  name.value = UserName
+
+  try {
+    const dataAttend = await displayAttendee(name.value)
+
+    //console.log(dataAttend.events);
+    for (const data of dataAttend.events) {
+        //console.log(data.id)
+        if (data.id === id) {
+        //console.log(true)
+        //console.log(data.dates)
+
+    for (const dateAttend of data.dates) {
+                const dateBox = document.createElement('div')
+                const label = document.createElement('lable')
+                const checkBox = document.createElement('input')
+                checkBox.setAttribute('type', 'checkbox')
+
+                dateAttendElem.appendChild(dateBox)
+                dateBox.appendChild(label)
+                label.innerHTML = dateAttend.date
+                label.setAttribute('for', dataAttend.date)
+                dateBox.appendChild(checkBox)
+                checkBox.id = dataAttend.date
+                checkBox.checked = dateAttend.available
+        
+    }
+        
+    }}
+    //console.log(arrayDisponibilite)
+
+} catch (error) {
+    console.error('Error processing data:', error);
+}
+};
