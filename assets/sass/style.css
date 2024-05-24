@@ -55,17 +55,28 @@ section {
   margin-top: 10px;
 }
 
-body.dark-theme {
-  background-color: #4A4A4A;
-  color: #ffffff;
+body.dark {
+  background-color: black;
+  color: white;
 }
 
-body.dark-theme header {
-  background-color: #4A4A4A;
+main.principal.dark {
+  background-color: black;
+  color: white;
+  border-radius: white 5px;
+  box-shadow: 0 0 10px rgb(246, 239, 239);
 }
 
-section.dark-theme {
-  color: black;
+section.dark {
+  border: 1px;
+}
+
+ul.events-list.dark {
+  border: 2px solid white;
+}
+
+div.events-list.dark {
+  border: 2px solid white;
 }
 
 .btn-edit {

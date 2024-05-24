@@ -6,6 +6,7 @@ $table-row-bg-color-even: #f5f5f5;
 $table-row-hover-bg-color: #e0e0e0;
 $table-cell-padding: 10px;
 $table-border-width: 1px;
+$border-radius: white 5px;
 
 table, th, td {
   border: $table-border-width solid $table-border-color;
@@ -76,19 +77,30 @@ section{
 
 //giovanni 
 
-body.dark-theme {
-    background-color: #4A4A4A;
-    color: #ffffff;
-  }
-  
-  body.dark-theme header {
-    background-color: #4A4A4A;
-  }
+body.dark{
+  background-color: black;
+  color: white;
+ 
+}
 
-  section.dark-theme{
-    color: black;
-  }
-  
+main.principal.dark{
+  background-color: black;
+  color: white;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px rgb(246, 239, 239);
+}
+
+section.dark{
+  border: 1px;
+}
+
+ul.events-list.dark { 
+border: 2px solid white;
+}
+
+div.events-list.dark{
+  border:2px solid white;
+}
   .btn-edit{
       width: 16px;
       height: 16px;
