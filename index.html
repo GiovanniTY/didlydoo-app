@@ -18,23 +18,17 @@
         <div class="events"> 
             <h2>Evénements</h2>
             <ul class="events-list"></ul> <!-- Modifié pour éviter la confusion avec la classe .events -->
-            <div id="messageLog">               
-                <button id="closeMessage" class="close">X</button>
-                 <p></p>
-            </div>
-            
             <div id="createEvent">
                 <h2>Créer un événement</h2>
-                <button id="closeCreateEvent" class="close">X</button>
                 <form id="createEventForm">
                     <label for="eventName">Nom :</label>
-                    <input type="text" id="eventName" name="eventName" maxlength="256" required>
+                    <input type="text" id="eventName" name="eventName" maxlength="256">
                     <div id="eventNameError" class="error"></div>
                     <label for="eventDescription">Description :</label>
-                    <textarea id="eventDescription" name="eventDescription" maxlength="256" required></textarea>
+                    <textarea id="eventDescription" name="eventDescription" maxlength="256"></textarea>
                     <div id="eventDescriptionError" class="error"></div>
                     <label for="AuteurEven">Auteur :</label>
-                    <input type="text" id="AuteurEven" name="AuteurEven" maxlength="256" required>
+                    <input type="text" id="AuteurEven" name="AuteurEven" maxlength="256">
                     <div id="AuteurEvenError" class="error"></div>
                     <button type="submit" id="submitEvent">Créer</button>
                 </form>
@@ -58,28 +52,12 @@
             </div>
             <div id="ajouterDisponibilite"> <!-- Correction de l'ID -->
                 <h2>Ajouter des disponibilités</h2>
-                <button id="closeajouterDisponibilite" class="close">X</button>
                 <form id="ajouterDisponibiliteForm"> <!-- Correction de l'ID -->
                     <input type="hidden" id="disponibiliteEventId" name="disponibiliteEventId"> <!-- Correction de l'ID -->
-                    <label for="attend">Attend :</label> <!-- Correction de l'ID -->
-                    <input type="text" id="attend" name="attend"> <!-- Correction de l'ID -->
-                    <div id="disponibiliteError" class="error"></div> <!-- Correction de l'ID -->
-                    <div class="date-attend">
-
-                    </div>
-                    <button type="submit" id="submitDisponibilite">Ajouter</button>
-                </form>
-            </div>
-            <div id="ajouterDates"> <!-- Correction de l'ID -->
-                <h2>Ajouter des dates</h2>
-                <button id="closeAjouterDates" class="close">X</button>
-                <form id="ajouterDatesForm"> <!-- Correction de l'ID -->
-                    <input type="hidden" id="disponibiliteEventId" name="disponibiliteEventId"> <!-- Correction de l'ID -->
                     <label for="disponibilite">Disponibilité :</label> <!-- Correction de l'ID -->
-                    <input type="date" id="disponibilite" name="disponibilite"> <!-- Correction de l'ID -->
-                    <div id="datesSelected" class="dates-Select"></div>
+                    <input type="text" id="disponibilite" name="disponibilite"> <!-- Correction de l'ID -->
                     <div id="disponibiliteError" class="error"></div> <!-- Correction de l'ID -->
-                    <button type="submit" id="btnAddDate">Ajouter</button>
+                    <button type="submit">Ajouter</button>
                 </form>
             </div>
             <div id="SupprimerEvent">

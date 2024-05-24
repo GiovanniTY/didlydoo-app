@@ -3,7 +3,8 @@ table, th, td {
   border: 1px solid #cccccc;
   padding: 10px;
   text-align: center;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
 
 table {
   width: 100%;
@@ -35,13 +36,14 @@ table tbody td {
 
 section {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+}
 
 .events-list {
   display: flex;
   flex-direction: column;
   color: 212;
-  border: 2px solid #0a0909;
+  border: 2px solid rgb(10, 9, 9);
   padding: 20px;
   margin-top: 20px;
   gap: 20px;
@@ -82,63 +84,70 @@ section.dark-theme {
     font-family: Arial, sans-serif;
     background-color: beige;
     margin: 20px;
-    padding: 10px; }
-
+    padding: 10px;
+  }
   h1, h2 {
-    color: #3498db; }
-
+    color: #3498db;
+  }
   .main {
-    padding: 20px; }
-
+    padding: 20px;
+  }
   .principal {
     max-width: 800px;
     margin: auto;
     background: beige;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
   .events {
-    margin-bottom: 20px; }
-    .events-list {
-      list-style-type: none;
-      padding: 0; }
-      .events-list li {
-        background: #62b0f5;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
-
+    margin-bottom: 20px;
+  }
+  .events-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .events-list li {
+    background: rgb(98, 176, 245);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
   form {
     display: flex;
     flex-direction: column;
-    gap: 10px; }
-    form label {
-      font-weight: bold; }
-    form input[type="text"],
-    form textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: Arial, sans-serif; }
-    form textarea {
-      resize: vertical; }
-    form button {
-      padding: 10px;
-      border: none;
-      background-color: #3498db;
-      color: #ffff;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: Arial, sans-serif; }
-      form button:hover {
-        background-color: #217dbb; }
-
+    gap: 10px;
+  }
+  form label {
+    font-weight: bold;
+  }
+  form input[type=text],
+  form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+  }
+  form textarea {
+    resize: vertical;
+  }
+  form button {
+    padding: 10px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  form button:hover {
+    background-color: #217dbb;
+  }
   .error {
     color: #e74c3c;
-    font-size: 0.9em; }
-
+    font-size: 0.9em;
+  }
   #createEvent,
   #editEvent,
   #ajouterDisponibilite,
@@ -146,17 +155,78 @@ section.dark-theme {
   #ajouterDates,
   #messageLog {
     margin-bottom: 20px;
+    position: fixed;
+    width: 90%;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: #fff;
+    border-radius: 15px;
+  }
+  #createEvent .dates-Select,
+  #editEvent .dates-Select,
+  #ajouterDisponibilite .dates-Select,
+  #SupprimerEvent .dates-Select,
+  #ajouterDates .dates-Select,
+  #messageLog .dates-Select {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+  }
+  #createEvent .dates-Select .date-selected,
+  #editEvent .dates-Select .date-selected,
+  #ajouterDisponibilite .dates-Select .date-selected,
+  #SupprimerEvent .dates-Select .date-selected,
+  #ajouterDates .dates-Select .date-selected,
+  #messageLog .dates-Select .date-selected {
+    min-width: 50px;
+    height: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin: 2px;
+  }
+  #createEvent .dates-Select .date-selected button,
+  #editEvent .dates-Select .date-selected button,
+  #ajouterDisponibilite .dates-Select .date-selected button,
+  #SupprimerEvent .dates-Select .date-selected button,
+  #ajouterDates .dates-Select .date-selected button,
+  #messageLog .dates-Select .date-selected button {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 10px;
+    padding: 0 !important;
+    margin-left: 10px;
+  }
+  #createEvent .close,
+  #editEvent .close,
+  #ajouterDisponibilite .close,
+  #SupprimerEvent .close,
+  #ajouterDates .close,
+  #messageLog .close {
+    position: relative;
+    left: 95%;
+    margin-bottom: 5px;
   }
   #createEvent h2,
   #editEvent h2,
   #ajouterDisponibilite h2,
-  #SupprimerEvent h2 {
+  #SupprimerEvent h2,
+  #ajouterDates h2,
+  #messageLog h2 {
     margin-bottom: 10px;
   }
   #createEvent form,
   #editEvent form,
   #ajouterDisponibilite form,
-  #SupprimerEvent form {
+  #SupprimerEvent form,
+  #ajouterDates form,
+  #messageLog form {
     padding: 10px;
     background: gray;
     border: 1px solid #ccc;
@@ -165,7 +235,9 @@ section.dark-theme {
   #createEvent form .error,
   #editEvent form .error,
   #ajouterDisponibilite form .error,
-  #SupprimerEvent form .error {
+  #SupprimerEvent form .error,
+  #ajouterDates form .error,
+  #messageLog form .error {
     margin-top: -10px;
     margin-bottom: 10px;
   }
@@ -178,63 +250,70 @@ section.dark-theme {
     font-family: Arial, sans-serif;
     background-color: beige;
     margin: 20px;
-    padding: 10px; }
-
+    padding: 10px;
+  }
   h1, h2 {
-    color: #3498db; }
-
+    color: #3498db;
+  }
   .main {
-    padding: 20px; }
-
+    padding: 20px;
+  }
   .principal {
     max-width: 800px;
     margin: auto;
     background: beige;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
   .events {
-    margin-bottom: 20px; }
-    .events-list {
-      list-style-type: none;
-      padding: 0; }
-      .events-list li {
-        background: #62b0f5;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
-
+    margin-bottom: 20px;
+  }
+  .events-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .events-list li {
+    background: rgb(98, 176, 245);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
   form {
     display: flex;
     flex-direction: column;
-    gap: 10px; }
-    form label {
-      font-weight: bold; }
-    form input[type="text"],
-    form textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: Arial, sans-serif; }
-    form textarea {
-      resize: vertical; }
-    form button {
-      padding: 10px;
-      border: none;
-      background-color: #3498db;
-      color: #ffff;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: Arial, sans-serif; }
-      form button:hover {
-        background-color: #217dbb; }
-
+    gap: 10px;
+  }
+  form label {
+    font-weight: bold;
+  }
+  form input[type=text],
+  form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+  }
+  form textarea {
+    resize: vertical;
+  }
+  form button {
+    padding: 10px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  form button:hover {
+    background-color: #217dbb;
+  }
   .error {
     color: #e74c3c;
-    font-size: 0.9em; }
-
+    font-size: 0.9em;
+  }
   #createEvent,
   #editEvent,
   #ajouterDisponibilite,
@@ -242,17 +321,78 @@ section.dark-theme {
   #ajouterDates,
   #messageLog {
     margin-bottom: 20px;
+    position: fixed;
+    width: 90%;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: #fff;
+    border-radius: 15px;
+  }
+  #createEvent .dates-Select,
+  #editEvent .dates-Select,
+  #ajouterDisponibilite .dates-Select,
+  #SupprimerEvent .dates-Select,
+  #ajouterDates .dates-Select,
+  #messageLog .dates-Select {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #createEvent .dates-Select .date-selected,
+  #editEvent .dates-Select .date-selected,
+  #ajouterDisponibilite .dates-Select .date-selected,
+  #SupprimerEvent .dates-Select .date-selected,
+  #ajouterDates .dates-Select .date-selected,
+  #messageLog .dates-Select .date-selected {
+    min-width: 50px;
+    height: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin: 2px;
+  }
+  #createEvent .dates-Select .date-selected button,
+  #editEvent .dates-Select .date-selected button,
+  #ajouterDisponibilite .dates-Select .date-selected button,
+  #SupprimerEvent .dates-Select .date-selected button,
+  #ajouterDates .dates-Select .date-selected button,
+  #messageLog .dates-Select .date-selected button {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 10px;
+    padding: 0 !important;
+    margin-left: 10px;
+  }
+  #createEvent .close,
+  #editEvent .close,
+  #ajouterDisponibilite .close,
+  #SupprimerEvent .close,
+  #ajouterDates .close,
+  #messageLog .close {
+    position: relative;
+    left: 95%;
+    margin-bottom: 5px;
   }
   #createEvent h2,
   #editEvent h2,
   #ajouterDisponibilite h2,
-  #SupprimerEvent h2 {
+  #SupprimerEvent h2,
+  #ajouterDates h2,
+  #messageLog h2 {
     margin-bottom: 10px;
   }
   #createEvent form,
   #editEvent form,
   #ajouterDisponibilite form,
-  #SupprimerEvent form {
+  #SupprimerEvent form,
+  #ajouterDates form,
+  #messageLog form {
     padding: 10px;
     background: gray;
     border: 1px solid #ccc;
@@ -261,7 +401,9 @@ section.dark-theme {
   #createEvent form .error,
   #editEvent form .error,
   #ajouterDisponibilite form .error,
-  #SupprimerEvent form .error {
+  #SupprimerEvent form .error,
+  #ajouterDates form .error,
+  #messageLog form .error {
     margin-top: -10px;
     margin-bottom: 10px;
   }
