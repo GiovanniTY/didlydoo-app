@@ -1,5 +1,5 @@
 import { postEvent, postDates, postAttend } from "./postRequest.js"
-import { patchEvent } from "./patchRequest.js"
+import { patchEvent ,patchAttend } from "./patchRequest.js"
 import { closeModale } from "./eventModale.js"
 
 
@@ -328,7 +328,7 @@ export async function displayAddAttend(id) {
             btnSubmit.addEventListener('click', event => {
 
                 event.preventDefault()
-                if (name.value != '' && nameExist === -1) { 
+                if (name.value != '' && nameExist === -1) {
 
                     for (let i = 0; i < arrayDates.length; i++) {
                         const checkBoxSelected = dateAttend.querySelector('#checkBox' + i)
@@ -347,7 +347,7 @@ export async function displayAddAttend(id) {
                         disponibiliteError.innerHTML = 'Requis'
 
                     if (nameExist <= 0)
-                        disponibiliteError.innerHTML = 'Attendee ' +name.value+ ' already exists'
+                        disponibiliteError.innerHTML = 'Attendee ' + name.value + ' already exists'
                 }
             })
         }
@@ -550,49 +550,63 @@ export function displayMessage(result) {
 
 }
 
-  async function displayPatchAttend(id, UserName) {
-    //console.log(id, name);
+async function displayPatchAttend(id, UserName) {
     let arrayDisponibilite = [];
-  //show modale
-  const modale = document.querySelector('#ajouterDisponibilite')
-  modale.style.display = 'block'
-  const dateAttendElem= modale.querySelector('.date-attend')
-  const btnSubmit = modale.querySelector('#submitDisponibilite')
-  const name = modale.querySelector('#attend')
-  dateAttendElem.innerHTML = '' //initialise l'element
+    //show modale
+    const modale = document.querySelector('#ajouterDisponibilite')
+    modale.style.display = 'block'
+    const dateAttendElem = modale.querySelector('.date-attend')
+    const btnSubmit = modale.querySelector('#submitDisponibilite')
+    const name = modale.querySelector('#attend')
+    name.disabled = true
+    dateAttendElem.innerHTML = '' //initialise l'element
 
-  name.value = UserName
+    name.value = UserName
 
-  try {
-    const dataAttend = await displayAttendee(name.value)
+    try {
+        const dataAttend = await displayAttendee(name.value)
+        const dataEvent = await displayEvent(id)
 
-    //console.log(dataAttend.events);
-    for (const data of dataAttend.events) {
-        //console.log(data.id)
-        if (data.id === id) {
-        //console.log(true)
-        //console.log(data.dates)
+        console.log(arrayDisponibilite);
+        for (const data of dataEvent.dates) {
+            const dateBox = document.createElement('div')
+            const label = document.createElement('lable')
+            const checkBox = document.createElement('input')
+            checkBox.setAttribute('type', 'checkbox')
 
-    for (const dateAttend of data.dates) {
-                const dateBox = document.createElement('div')
-                const label = document.createElement('lable')
-                const checkBox = document.createElement('input')
-                checkBox.setAttribute('type', 'checkbox')
+            dateAttendElem.appendChild(dateBox)
+            dateBox.appendChild(label)
+            label.innerHTML = data.date
+            label.setAttribute('for', dataAttend.date)
+            dateBox.appendChild(checkBox)
+            checkBox.id = data.date
 
-                dateAttendElem.appendChild(dateBox)
-                dateBox.appendChild(label)
-                label.innerHTML = dateAttend.date
-                label.setAttribute('for', dataAttend.date)
-                dateBox.appendChild(checkBox)
-                checkBox.id = dataAttend.date
-                checkBox.checked = dateAttend.available
-        
+            for (const dataDispo of dataAttend.events) {
+                if (dataDispo.id === id) {
+                    for (const dataDispo2 of dataDispo.dates) {
+                        if (data.date === dataDispo2.date){
+                            checkBox.checked = dataDispo2.available                           
+                        }                            
+                    }
+                }
+            }
+        }
+
+        btnSubmit.addEventListener('click',event =>{
+            event.preventDefault()
+            arrayDisponibilite = []
+
+            const checkboxAll = dateAttendElem.querySelectorAll('input[type=checkBox]')
+            for (const checkbox of checkboxAll) {
+                //console.log(checkbox.id , checkbox.checked);
+                arrayDisponibilite.push({'date': checkbox.id , 'available': checkbox.checked })
+            } 
+            
+            patchAttend(id, arrayDisponibilite, name.value)
+            
+        })
+
+    } catch (error) {
+        console.error('Error processing data:', error);
     }
-        
-    }}
-    //console.log(arrayDisponibilite)
-
-} catch (error) {
-    console.error('Error processing data:', error);
-}
 };

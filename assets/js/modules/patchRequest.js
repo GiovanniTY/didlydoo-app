@@ -9,7 +9,7 @@ import { displayMessage } from './getRequest.js';
  * @param {*} dataBody données retournées par la formulaire ' add Event '
  */
 export async function patchEvent(dataBody, id) {
-
+    
     try {
         const response = await fetch("http://localhost:3000/api/events/" + id, {
             method: "PATCH",
@@ -28,5 +28,31 @@ export async function patchEvent(dataBody, id) {
         console.error("Error:", error);
         closeModale('#createEvent')
         displayMessage('Error : Patch event : ' + dataBody.name)
+    }
+}
+export async function patchAttend(id, dataBody, name) {
+    console.log(id,dataBody,name,);
+    try {
+        const response = await fetch("http://localhost:3000/api/events/"+ id +"/attend", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                dates: dataBody
+            })
+        });
+
+        const result = await response.json();
+        closeModale('#ajouterDisponibilite')
+        displayMessage('Success : Patch Date(s) pour  : ' + name)
+
+        console.log(id, dataBody);
+        console.log("Success:", result);
+    } catch (error) {
+        console.error("Error:", error);
+        closeModale('#ajouterDisponibilite')
+        displayMessage('Success : Patch Date(s) : ' + name)
     }
 }
