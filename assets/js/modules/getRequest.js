@@ -460,9 +460,10 @@ function creatDomEvent(data) {
                 tdList.innerHTML = name
                 //create button edit
                 const btnEdit = document.createElement('button')
-                tdList.append(btnEdit)
+                btnEdit.classList.add("btn-edit");
+                tdList.append(btnEdit);
                 btnEdit.id = name + idEvent
-                btnEdit.innerHTML = 'Edit'
+                btnEdit.innerHTML = ''
 
                 // Event 
                 btnEdit.addEventListener('click', event => {

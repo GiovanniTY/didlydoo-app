@@ -1,3 +1,6 @@
+const btnEdit = document.querySelector('.btn-edit');
+
+
 import { closeModale } from './eventModale.js';
 import { displayMessage } from './getRequest.js';
 

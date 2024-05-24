@@ -162,15 +162,6 @@ form {
 }
 }
 
-body.dark-theme {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-body.dark-theme header {
-  background-color: #444444;
-}
-
 /*----------------pc----------------------------------------*/
 @media screen and (min-width: 601px) {
   /* Ajoutez ici les règles de style que vous souhaitez appliquer
@@ -332,16 +323,3 @@ form {
   }
 }
 }
-
-//giovanni 
-
-body.dark-theme {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-body.dark-theme header {
-  background-color: #444444;
-}
-
-
