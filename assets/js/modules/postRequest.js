@@ -63,7 +63,7 @@ export async function postDates(id, dataBody) {
  * @param {*} name de l'attend
  */
 export async function postAttend(id, dataBody, name) {
-
+    console.log(id,dataBody,name);
     try {
         const response = await fetch("http://localhost:3000/api/events/" + id + "/attend", {
             method: "POST",

@@ -1,5 +1,5 @@
 import { postEvent, postDates, postAttend } from "./postRequest.js"
-import { patchEvent ,patchAttend } from "./patchRequest.js"
+import { patchEvent, patchAttend } from "./patchRequest.js"
 import { closeModale } from "./eventModale.js"
 
 
@@ -276,21 +276,21 @@ export async function displayAddAttend(id) {
          */
         name.addEventListener('change', async event => {
 
-            try {
-                const dataAttend = await displayAttendee(name.value)
-
-                for (const event of dataAttend.events) {
-                    arrayNmaExists.push(event.id)
-                }
-                const idString = id
-                nameExist = arrayNmaExists.indexOf(idString)
-                console.log(nameExist);
-                console.log('iD:' + arrayNmaExists);
-                console.log(id.toString());
-
-            } catch (error) {
-                console.error('Error processing data:', error);
-            }
+            /* try {
+                 const dataAttend = await displayAttendee(name.value)
+ 
+                 for (const event of dataAttend.events) {
+                     arrayNmaExists.push(event.id)
+                 }
+                 const idString = id
+                 nameExist = arrayNmaExists.indexOf(idString)
+                 console.log(nameExist);
+                 console.log('iD:' + arrayNmaExists);
+                 console.log(id.toString());
+ 
+             } catch (error) {
+                 console.error('Error processing data:', error);
+             }*/
         })
         /**
          * Si il n'y a pas de dates dans l'event 
@@ -328,7 +328,8 @@ export async function displayAddAttend(id) {
             btnSubmit.addEventListener('click', event => {
 
                 event.preventDefault()
-                if (name.value != '' && nameExist === -1) {
+                //if (name.value != '' && nameExist === -1) {
+                  if (name.value != '') {
 
                     for (let i = 0; i < arrayDates.length; i++) {
                         const checkBoxSelected = dateAttend.querySelector('#checkBox' + i)
@@ -598,9 +599,9 @@ async function displayPatchAttend(id, UserName) {
             for (const dataDispo of dataAttend.events) {
                 if (dataDispo.id === id) {
                     for (const dataDispo2 of dataDispo.dates) {
-                        if (data.date === dataDispo2.date){
-                            checkBox.checked = dataDispo2.available                           
-                        }                            
+                        if (data.date === dataDispo2.date) {
+                            checkBox.checked = dataDispo2.available
+                        }
                     }
                 }
             }
@@ -610,18 +611,18 @@ async function displayPatchAttend(id, UserName) {
          * recupère dans le DOM tous les input[type=checkBox] (id et Checked)
          * structure le Array avec les données des Input pour Patch dans l'Api
          */
-        btnSubmit.addEventListener('click',event =>{
+        btnSubmit.addEventListener('click', event => {
             event.preventDefault()
             arrayDisponibilite = [] //initialise le Array
 
             const checkboxAll = dateAttendElem.querySelectorAll('input[type=checkBox]')
             for (const checkbox of checkboxAll) {
                 //console.log(checkbox.id , checkbox.checked);
-                arrayDisponibilite.push({'date': checkbox.id , 'available': checkbox.checked })
-            } 
-            
+                arrayDisponibilite.push({ 'date': checkbox.id, 'available': checkbox.checked })
+            }
+
             patchAttend(id, arrayDisponibilite, name.value)
-            
+
         })
 
     } catch (error) {
