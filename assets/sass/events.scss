@@ -74,3 +74,25 @@ section{
   }
   
 
+//giovanni 
+
+body.dark-theme {
+    background-color: #4A4A4A;
+    color: #ffffff;
+  }
+  
+  body.dark-theme header {
+    background-color: #4A4A4A;
+  }
+
+  section.dark-theme{
+    color: black;
+  }
+  
+  .btn-edit{
+      width: 16px;
+      height: 16px;
+      background-color: transparent; 
+      border: none; 
+      background-image: url('../images/pencil-alt-solid (1).svg');
+  }

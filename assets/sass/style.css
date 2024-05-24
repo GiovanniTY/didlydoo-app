@@ -55,6 +55,27 @@ section {
   margin-top: 10px;
 }
 
+body.dark-theme {
+  background-color: #4A4A4A;
+  color: #ffffff;
+}
+
+body.dark-theme header {
+  background-color: #4A4A4A;
+}
+
+section.dark-theme {
+  color: black;
+}
+
+.btn-edit {
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  border: none;
+  background-image: url("../images/pencil-alt-solid (1).svg");
+}
+
 /*----------------gsm----------------------------------------*/
 @media screen and (max-width: 600px) {
   /* Ajoutez ici les règles de style que vous souhaitez appliquer
@@ -130,19 +151,82 @@ section {
   #createEvent,
   #editEvent,
   #ajouterDisponibilite,
-  #SupprimerEvent {
+  #SupprimerEvent,
+  #ajouterDates,
+  #messageLog {
     margin-bottom: 20px;
+    position: fixed;
+    width: 90%;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: #fff;
+    border-radius: 15px;
+  }
+  #createEvent .dates-Select,
+  #editEvent .dates-Select,
+  #ajouterDisponibilite .dates-Select,
+  #SupprimerEvent .dates-Select,
+  #ajouterDates .dates-Select,
+  #messageLog .dates-Select {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+  }
+  #createEvent .dates-Select .date-selected,
+  #editEvent .dates-Select .date-selected,
+  #ajouterDisponibilite .dates-Select .date-selected,
+  #SupprimerEvent .dates-Select .date-selected,
+  #ajouterDates .dates-Select .date-selected,
+  #messageLog .dates-Select .date-selected {
+    min-width: 50px;
+    height: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin: 2px;
+  }
+  #createEvent .dates-Select .date-selected button,
+  #editEvent .dates-Select .date-selected button,
+  #ajouterDisponibilite .dates-Select .date-selected button,
+  #SupprimerEvent .dates-Select .date-selected button,
+  #ajouterDates .dates-Select .date-selected button,
+  #messageLog .dates-Select .date-selected button {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 10px;
+    padding: 0 !important;
+    margin-left: 10px;
+  }
+  #createEvent .close,
+  #editEvent .close,
+  #ajouterDisponibilite .close,
+  #SupprimerEvent .close,
+  #ajouterDates .close,
+  #messageLog .close {
+    position: relative;
+    left: 95%;
+    margin-bottom: 5px;
   }
   #createEvent h2,
   #editEvent h2,
   #ajouterDisponibilite h2,
-  #SupprimerEvent h2 {
+  #SupprimerEvent h2,
+  #ajouterDates h2,
+  #messageLog h2 {
     margin-bottom: 10px;
   }
   #createEvent form,
   #editEvent form,
   #ajouterDisponibilite form,
-  #SupprimerEvent form {
+  #SupprimerEvent form,
+  #ajouterDates form,
+  #messageLog form {
     padding: 10px;
     background: gray;
     border: 1px solid #ccc;
@@ -151,20 +235,13 @@ section {
   #createEvent form .error,
   #editEvent form .error,
   #ajouterDisponibilite form .error,
-  #SupprimerEvent form .error {
+  #SupprimerEvent form .error,
+  #ajouterDates form .error,
+  #messageLog form .error {
     margin-top: -10px;
     margin-bottom: 10px;
   }
 }
-body.dark-theme {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-body.dark-theme header {
-  background-color: #444444;
-}
-
 /*----------------pc----------------------------------------*/
 @media screen and (min-width: 601px) {
   /* Ajoutez ici les règles de style que vous souhaitez appliquer
@@ -240,19 +317,82 @@ body.dark-theme header {
   #createEvent,
   #editEvent,
   #ajouterDisponibilite,
-  #SupprimerEvent {
+  #SupprimerEvent,
+  #ajouterDates,
+  #messageLog {
     margin-bottom: 20px;
+    position: fixed;
+    width: 90%;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: #fff;
+    border-radius: 15px;
+  }
+  #createEvent .dates-Select,
+  #editEvent .dates-Select,
+  #ajouterDisponibilite .dates-Select,
+  #SupprimerEvent .dates-Select,
+  #ajouterDates .dates-Select,
+  #messageLog .dates-Select {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #createEvent .dates-Select .date-selected,
+  #editEvent .dates-Select .date-selected,
+  #ajouterDisponibilite .dates-Select .date-selected,
+  #SupprimerEvent .dates-Select .date-selected,
+  #ajouterDates .dates-Select .date-selected,
+  #messageLog .dates-Select .date-selected {
+    min-width: 50px;
+    height: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin: 2px;
+  }
+  #createEvent .dates-Select .date-selected button,
+  #editEvent .dates-Select .date-selected button,
+  #ajouterDisponibilite .dates-Select .date-selected button,
+  #SupprimerEvent .dates-Select .date-selected button,
+  #ajouterDates .dates-Select .date-selected button,
+  #messageLog .dates-Select .date-selected button {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 10px;
+    padding: 0 !important;
+    margin-left: 10px;
+  }
+  #createEvent .close,
+  #editEvent .close,
+  #ajouterDisponibilite .close,
+  #SupprimerEvent .close,
+  #ajouterDates .close,
+  #messageLog .close {
+    position: relative;
+    left: 95%;
+    margin-bottom: 5px;
   }
   #createEvent h2,
   #editEvent h2,
   #ajouterDisponibilite h2,
-  #SupprimerEvent h2 {
+  #SupprimerEvent h2,
+  #ajouterDates h2,
+  #messageLog h2 {
     margin-bottom: 10px;
   }
   #createEvent form,
   #editEvent form,
   #ajouterDisponibilite form,
-  #SupprimerEvent form {
+  #SupprimerEvent form,
+  #ajouterDates form,
+  #messageLog form {
     padding: 10px;
     background: gray;
     border: 1px solid #ccc;
@@ -261,16 +401,10 @@ body.dark-theme header {
   #createEvent form .error,
   #editEvent form .error,
   #ajouterDisponibilite form .error,
-  #SupprimerEvent form .error {
+  #SupprimerEvent form .error,
+  #ajouterDates form .error,
+  #messageLog form .error {
     margin-top: -10px;
     margin-bottom: 10px;
   }
-}
-body.dark-theme {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-body.dark-theme header {
-  background-color: #444444;
 }/*# sourceMappingURL=style.css.map */

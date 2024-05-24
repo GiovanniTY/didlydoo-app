@@ -1,4 +1,6 @@
-import { postEvent } from "./postRequest.js"
+import { postEvent, postDates, postAttend } from "./postRequest.js"
+import { patchEvent, patchAttend } from "./patchRequest.js"
+import { closeModale } from "./eventModale.js"
 
 
 /**
@@ -18,6 +20,23 @@ export function displayEvents() {
         .catch(error => {
             console.error('Erreur:', error)
         })
+}
+/**
+ * Affiche tous les evenements 
+ */
+export async function displayEvent(id) {
+    try {
+        const response = await fetch('http://localhost:3000/api/events/' + id);
+        if (!response.ok) {
+            console.log('Not found');
+            return null;
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erreur:', error);
+        return null;
+    }
 }
 /**
  * Affiche les participants
@@ -40,23 +59,22 @@ export function displayAttendees() {
         })
 }
 /**
- * affiche un partiicpant selectionner 
+ * affiche un partiicpant en fonction de son nom
  * @param {*} name nom du participant
  */
-export function displayAttendee(name) {
-    fetch('http://localhost:3000/api/attendees/' + name)
-        .then(response => {
-            if (!response.ok) {
-                console.log('no found')
-            }
-            return response.json()
-        })
-        .then(dataAttendee => {
-            console.log(dataAttendee.name)
-        })
-        .catch(error => {
-            console.error('Erreur:', error)
-        })
+export async function displayAttendee(name) {
+    try {
+        const response = await fetch('http://localhost:3000/api/attendees/' + name);
+        if (!response.ok) {
+            console.log('Not found');
+            return null;
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erreur:', error);
+        return null;
+    }
 }
 
 /**
@@ -65,9 +83,13 @@ export function displayAttendee(name) {
  * @param {*} methode d'envoi des donnée pour l'api
  * @param {*} id de l'event a modifier (methode Patch)
  */
-export function displayAddEvent(methode, id) {
+export async function displayAddEvent(methode, id) {
 
     let arrayBody = []
+
+    //show modale
+    const modale = document.querySelector('#createEvent')
+    modale.style.display = 'block'
 
     //data Element 
     const form = document.querySelector('#createEventForm')
@@ -75,35 +97,274 @@ export function displayAddEvent(methode, id) {
     const eventDescription = document.querySelector('#eventDescription')
     const AuteurEven = document.querySelector('#AuteurEven')
     const btnSubmitEvent = document.querySelector('#submitEvent')
+    const titleParent = document.querySelector('#createEvent')
+    const title = titleParent.querySelector('h2')
 
-    if (methode == 'post')
+    if (methode == 'post') {
         btnSubmitEvent.innerHTML = 'Add Event'
-    else
+    } else {
         btnSubmitEvent.innerHTML = "Patch Event"
 
+        try {
+            const dataEvent = await displayEvent(id)
+            eventName.value = dataEvent.name
+            eventDescription.value = dataEvent.description
+            AuteurEven.value = dataEvent.author
+
+            title.innerHTML = 'Patch un événement : ' + dataEvent.name
+        } catch (error) {
+            console.error('Error processing data:', error)
+        }
+    }
+    /**
+     * Event click
+     * en fonction de la methode ceci appel une fonction
+     * Post :: verifie si tous les input sont encodées, si pas message errer dans le modale
+     */
     btnSubmitEvent.addEventListener('click', event => {
         event.preventDefault()
 
-        arrayBody = {
-            "name": eventName.value,
-            "description": eventDescription.value,
-            "author": AuteurEven.value,
-            "dates": []
-        }
-
-        if (methode == 'post') {
+        if (methode == 'post' && eventName.value != '' & eventDescription.value != '' && AuteurEven.value != '') {
+            arrayBody = {
+                "name": eventName.value,
+                "description": eventDescription.value,
+                "author": AuteurEven.value,
+                "dates": []
+            }
             postEvent(arrayBody)
         } else if (methode == 'patch') {
-            //patchEvent(arrayBody)
+            arrayBody = {
+                "name": eventName.value,
+                "description": eventDescription.value,
+                "author": AuteurEven.value,
+            }
+            patchEvent(arrayBody, id)
+        } else {
+            const eventNameError = modale.querySelector('#eventNameError')
+            const eventDescriptionError = modale.querySelector('#eventDescriptionError')
+            const auteurEvenError = modale.querySelector('#AuteurEvenError')
+
+            //refresh input
+            eventNameError.innerHTML = ''
+            eventDescriptionError.innerHTML = ''
+            auteurEvenError.innerHTML = ''
+
+            if (eventName.value == '')
+                eventNameError.innerHTML = 'Requis'
+            if (eventDescription.value == '')
+                eventDescriptionError.innerHTML = 'Requis'
+            if (AuteurEven.value == '')
+                auteurEvenError.innerHTML = 'Requis'
+
         }
-
-
-
     })
+}
+/**
+ * Ajote des dates
+ * @param {*} id event
+ */
+async function displayAddDate(id) {
+
+    let arrayBody = []
+    let arrayDates = []
+    let arrayDatesSelected = []
+
+    //curent Date
+    const currentDate = new Date()
+    const currentDateMonth = ((currentDate.getMonth() + 1) < 9) ? '0' + (currentDate.getMonth() + 1) : (currentDate.getMonth() + 1)
+    const currentDateDate = (currentDate.getDate() < 9) ? '0' + currentDate.getDate() : currentDate.getDate()
+    const curentDateFormat = currentDate.getFullYear() + '-' + currentDateMonth + '-' + currentDateDate
+
+    //show modale
+    const modale = document.querySelector('#ajouterDates')
+    modale.style.display = 'block'
+
+    const addDatesFrom = document.querySelector('#ajouterDatesForm')
+    const date = addDatesFrom.querySelector('#disponibilite')
+    date.setAttribute('min', curentDateFormat);
+    const btnSubmitDate = addDatesFrom.querySelector('#btnAddDate')
+    btnSubmitDate.innerHTML = 'Add Date'
+
+    const theadElem = document.querySelector('thead')
+    const dateSlected = theadElem.querySelectorAll('th')
+
+    const datesSlected = document.querySelector('#datesSelected')
+    /**
+     * recupere les data de l'event (id) dans l'api
+     */
+    try {
+        const dataEvent = await displayEvent(id)
+        for (const data of dataEvent.dates) {
+            arrayDates.push(data.date)
+        }
+        /**
+         * event Change add date
+         * Verifie si la date existe ==>
+         * oui : message erreur
+         * Non: Ajout dans un element la date et un bouton delete
+         */
+        date.addEventListener('change', event => {
+            let dateValue = date.value
+
+            // création en DOME de la zone de selection de date
+            if (parseInt(arrayDates.indexOf(dateValue)) >= 0) {
+                alert(dateValue + ' se trouve dans l\'evenement')
+
+            } else {
+                const selected = document.createElement('div')
+                const btnDateSelected = document.createElement('button')
+                datesSlected.appendChild(selected)
+                selected.innerHTML = dateValue
+                selected.classList.add('date-selected')
+                selected.appendChild(btnDateSelected)
+                btnDateSelected.innerHTML = 'X'
+
+                arrayDatesSelected.push(dateValue)
+
+                //supressionde la date
+                btnDateSelected.addEventListener('click', event => {
+                    event.preventDefault()
+                    datesSlected.removeChild(selected)
+                    let datesPostion = arrayDatesSelected.indexOf(dateValue)
+                    arrayDatesSelected.splice(datesPostion, 1)
+
+                    arrayDates = []
+                })
+            }
+        })
+        // event Click Submit
+        btnSubmitDate.addEventListener('click', event => {
+            event.preventDefault()
+            arrayBody = {
+                "dates":
+                    arrayDatesSelected
+            }
+            postDates(id, arrayBody)
+        })
+    } catch (error) {
+        console.error('Error processing data:', error);
+    }
+}
+/**
+ * Ajouter un new attend dans event
+ * @param {*} id de l'event
+ */
+export async function displayAddAttend(id) {
+
+    let arrayDates = []
+    let arrayDatesSelected = []
+    let arrayNmaExists = []
+    let cpt = 0
+    let nameExist
+
+    //show modale
+    const modale = document.querySelector('#ajouterDisponibilite')
+    modale.style.display = 'block'
+    const dateAttend = modale.querySelector('.date-attend')
+    const btnSubmit = modale.querySelector('#submitDisponibilite')
+    const name = modale.querySelector('#attend')
+    dateAttend.innerHTML = '' //initialise l'element
+
+    /**
+     * recupere les données des dates dans l'api
+     */
+    try {
+        const dataEvent = await displayEvent(id)
+        /**
+         * event du Changement de l'input name 
+         * Verifie via les data de l'api si le name existe deja dans l'event 
+         */
+        name.addEventListener('change', async event => {
+
+            try {
+                const dataAttend = await displayAttendee(name.value)
+
+                if (dataAttend == null) {
+                    nameExist = -1
+                } else {
+                    for (const event of dataAttend.events) {
+                        arrayNmaExists.push(event.id)
+                    }
+                    const idString = id
+                    nameExist = arrayNmaExists.indexOf(idString)
+                    console.log(nameExist);
+                    console.log('iD:' + arrayNmaExists);
+                    console.log(id.toString());
+                }
+
+
+            } catch (error) {
+                console.error('Error processing data:', error);
+            }
+        })
+        /**
+         * Si il n'y a pas de dates dans l'event 
+         * Affiche le modal Adddates et ferme le modale AddAttend
+         */
+        if (dataEvent.dates.length == 0) {
+            displayAddDate(id)
+            closeModale('#ajouterDisponibilite')
+
+        } else {
+            for (const data of dataEvent.dates) {
+                /**
+                 * recupere les data de l'api et affiche via DOM les disponibilitées
+                 */
+                const dateBox = document.createElement('div')
+                const label = document.createElement('lable')
+                const checkBox = document.createElement('input')
+                checkBox.setAttribute('type', 'checkbox')
+
+                dateAttend.appendChild(dateBox)
+                dateBox.appendChild(label)
+                label.innerHTML = data.date
+                label.setAttribute('for', 'checkBox' + cpt)
+                dateBox.appendChild(checkBox)
+                checkBox.id = 'checkBox' + cpt
+                checkBox.checked = false
+
+                arrayDates.push(data.date)
+
+                cpt++
+            }
+            /**
+             * envent click du bouton Submit
+             */
+            btnSubmit.addEventListener('click', event => {
+
+                event.preventDefault()
+                //if (name.value != '' && nameExist === -1) {
+                if (name.value != '' && nameExist === -1) {
+
+                    for (let i = 0; i < arrayDates.length; i++) {
+                        const checkBoxSelected = dateAttend.querySelector('#checkBox' + i)
+                        console.log(checkBoxSelected.checked);
+
+                        const selected = "available:" + checkBoxSelected.checked
+                        arrayDatesSelected.push({ date: arrayDates[i], available: checkBoxSelected.checked })
+                    }
+
+                    postAttend(id, arrayDatesSelected, name.value)
+                } else {
+                    // indique les messages d'erruer 
+                    const disponibiliteError = modale.querySelector('#disponibiliteError')
+
+                    if (name.value == '')
+                        disponibiliteError.innerHTML = 'Requis'
+
+                    if (nameExist <= 0)
+                        disponibiliteError.innerHTML = 'Attendee ' + name.value + ' already exists'
+                }
+            })
+        }
+        //console.log(arrayDates);
+    } catch (error) {
+        console.error('Error processing data:', error);
+    }
 }
 
 /**
- * Cr"ation des events via le DOM
+ * Création des events via le DOM
  * @param {*} data de l'api
  */
 function creatDomEvent(data) {
@@ -169,7 +430,7 @@ function creatDomEvent(data) {
             thead.appendChild(headerRow)
             const th = document.createElement('th')
             headerRow.appendChild(th)
-            headerRow.innerHTML = 'name'
+            th.innerHTML = 'name'
 
             //create de tbody
             const tbody = document.createElement('tbody')
@@ -199,7 +460,6 @@ function creatDomEvent(data) {
                         arrayAttendees[name] = {}
                     }
                     arrayAttendees[name][availability.date] = available
-
                 }
             }
 
@@ -216,13 +476,15 @@ function creatDomEvent(data) {
                 tdList.innerHTML = name
                 //create button edit
                 const btnEdit = document.createElement('button')
-                tdList.append(btnEdit)
+                btnEdit.classList.add("btn-edit");
+                tdList.append(btnEdit);
                 btnEdit.id = name + idEvent
-                btnEdit.innerHTML = 'Edit'
+                btnEdit.innerHTML = ''
 
                 // Event 
                 btnEdit.addEventListener('click', event => {
-                    console.log('edit' + name + ' - id:' + idEvent)
+                    //console.log('edit' + name + ' - id:' + idEvent)
+                    displayPatchAttend(idEvent, name)
                 })
                 const availabilityBol = arrayAttendees[name]
 
@@ -282,5 +544,145 @@ function creatDomEvent(data) {
         }
 
 
+
+        // btn div
+        const btnDiv = document.createElement('div')
+        sectionElem.appendChild(btnDiv)
+        btnDiv.classList.add('event-button')
+        // create btn DOM
+        const btnAddDates = document.createElement('button')
+        btnDiv.appendChild(btnAddDates)
+        btnAddDates.id = 'btnAddDates'
+        btnAddDates.innerHTML = 'Add Dates'
+
+        // create btn DOM
+        const btnPatchEvent = document.createElement('button')
+        btnDiv.appendChild(btnPatchEvent)
+        btnPatchEvent.id = 'btnAddDates'
+        btnPatchEvent.innerHTML = 'Patch Event'
+
+        // create btn DOM Add Attend
+        const btnPostAttend = document.createElement('button')
+        btnDiv.appendChild(btnPostAttend)
+        btnPostAttend.id = 'btnAddDates'
+        btnPostAttend.innerHTML = 'Add Attend'
+
+        //event
+        btnAddDates.addEventListener('click', event => {
+            displayAddDate(idEvent)
+        })
+
+        //event
+        btnPatchEvent.addEventListener('click', event => {
+            displayAddEvent('patch', idEvent)
+        })
+
+        //event
+        btnPostAttend.addEventListener('click', event => {
+            displayAddAttend(idEvent)
+        })
     }
 }
+/**
+ * Affiche un modale pour infomer l'etat de l'action 
+ * @param {*} result 
+ */
+export function displayMessage(result) {
+
+    //show modale
+    const eventElem = document.querySelector('.events')
+    const modale = eventElem.querySelector('#messageLog')
+    const btnCloseModale = eventElem.querySelector('#closeMessage')
+    modale.style.display = 'block'
+    const modaleText = modale.querySelector('p')
+    modaleText.innerHTML = result
+
+    //console.log(modaleText);
+
+    // close modale messageLog
+    btnCloseModale.addEventListener('click', event => {
+        closeModale('#messageLog')
+        location.reload()
+    })
+
+
+}
+/**
+ * modifie les disponibilitées de l'attend
+ * @param {*} id de l'event
+ * @param {*} UserName nom de l'attend
+ */
+async function displayPatchAttend(id, UserName) {
+    let arrayDisponibilite = [];
+    //show modale
+    const modale = document.querySelector('#ajouterDisponibilite')
+    modale.style.display = 'block'
+    const dateAttendElem = modale.querySelector('.date-attend')
+    const btnSubmit = modale.querySelector('#submitDisponibilite')
+    const name = modale.querySelector('#attend')
+    name.disabled = true
+    dateAttendElem.innerHTML = '' //initialise l'element
+
+    name.value = UserName
+
+    /**
+     * recupère les données ddes api
+     */
+    try {
+        const dataAttend = await displayAttendee(name.value)
+        const dataEvent = await displayEvent(id)
+
+        //console.log(arrayDisponibilite);
+        /**
+         * liste les dates de l'event (id)
+         * création des elements dans le DOM
+         */
+        for (const data of dataEvent.dates) {
+            const dateBox = document.createElement('div')
+            const label = document.createElement('lable')
+            const checkBox = document.createElement('input')
+            checkBox.setAttribute('type', 'checkbox')
+
+            dateAttendElem.appendChild(dateBox)
+            dateBox.appendChild(label)
+            label.innerHTML = data.date
+            label.setAttribute('for', dataAttend.date)
+            dateBox.appendChild(checkBox)
+            checkBox.id = data.date
+
+            /**
+             * verifie les dates de l'event et les disponibilté de l'attend et affiche via le DOM
+             */
+            for (const dataDispo of dataAttend.events) {
+                if (dataDispo.id === id) {
+                    for (const dataDispo2 of dataDispo.dates) {
+                        if (data.date === dataDispo2.date) {
+                            checkBox.checked = dataDispo2.available
+                        }
+                    }
+                }
+            }
+        }
+        /**
+         * event submit 
+         * recupère dans le DOM tous les input[type=checkBox] (id et Checked)
+         * structure le Array avec les données des Input pour Patch dans l'Api
+         */
+        btnSubmit.addEventListener('click', event => {
+            event.preventDefault()
+            arrayDisponibilite = [] //initialise le Array
+
+            const checkboxAll = dateAttendElem.querySelectorAll('input[type=checkBox]')
+            for (const checkbox of checkboxAll) {
+                //console.log(checkbox.id , checkbox.checked);
+                arrayDisponibilite.push({ 'date': checkbox.id, 'available': checkbox.checked })
+            }
+
+            patchAttend(id, arrayDisponibilite, name.value)
+
+        })
+
+    } catch (error) {
+        console.error('Error processing data:', error);
+    }
+};
