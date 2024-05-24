@@ -1,0 +1,2 @@
+# Ignore les fichiers dans le répertoire .sass-cache/
+.sass-cache/
