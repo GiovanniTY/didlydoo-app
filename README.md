@@ -35,10 +35,15 @@ Un développeur backend a déjà créé une API pour l'outil, vous pouvez donc v
 ## Vos tâches:
 
 🌱 Afficher tous les événements, y compris la disponibilité de chacun
+
 🌱 Autoriser les utilisateurs à créer des événements
+
 🌱 Autoriser les utilisateurs à ajouter leur disponibilité à un événement existant
+
 🌱 Modifier le nom/la description/l'auteur d'un événement
+
 🌱 Supprimer un événement
+
 🌱 Vous devez valider vos saisies avant d'envoyer les données à votre backend, les saisies requises doivent être déposées et comporter moins de 256 caractères. Si ce n'est pas le cas, vous n'envoyez pas la demande et affichez l'erreur appropriée sous l'entrée.
 Prime :
 
